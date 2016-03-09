@@ -1,41 +1,52 @@
 void settings() {
-  size(700, 700, P3D);
+size(800, 800, P3D);
 }
-
 void setup() {
-  noStroke();
+noStroke();
 }
 
-float rotX = 0;
-float rotZ = 0;
-float previousX = mouseX;
+float angleX = 0;
+float angleZ = 0;
+
 float previousY = mouseY;
+float previousX = mouseX;
+
+float speed = 1;
 
 void draw() {
-  background(0, 0, 200);
-  lights();
-  translate(width/2, height/2, 0);
-  rotateX(rotX);
-  rotateZ(rotZ);
-  box(250, 15, 250);
-  //translate(100, 0, 0);
+background(0, 255, 255);
+lights();
+
+translate(width/2, height/2, 0);
+rotateX(angleX);
+rotateZ(angleZ);
+box(200, 10, 200);
+translate(100, 0, 0);
 }
+
 
 void mouseDragged() 
 {
-  if (previousX > mouseX && rotZ >= -PI/3){
-    rotZ -= PI/60;
+  if (previousX > mouseX && angleZ >= -PI/3){
+    angleZ -= max((PI/60)*speed, -PI/3);
   }
-  else if (previousX < mouseX && rotZ <= PI/3){
-    rotZ += PI/60;
+  else if (previousX < mouseX && angleZ <= PI/3){
+    angleZ += min((PI/60)*speed, PI/3);
   }
   previousX = mouseX;
-  
-    if (previousY < mouseY && rotX >= -PI/3){
-    rotX -= PI/60;
+ 
+    if (previousY < mouseY && angleX >= -PI/3){
+    angleX -= max((PI/60)*speed, -PI/3);
   }
-  else if (previousY > mouseY && rotX <= PI/3){
-    rotX += PI/60;
+  else if (previousY > mouseY && angleX <= PI/3){
+    angleX += min((PI/60)*speed, PI/3);
   }
   previousY = mouseY;
+}
+
+
+void mouseWheel(MouseEvent event) {
+  float e = event.getCount();
+  print(e);
+  speed = (e>0)? speed*1.1 : speed*0.9;  
 }
