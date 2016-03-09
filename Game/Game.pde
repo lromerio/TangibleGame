@@ -14,12 +14,15 @@ void setup() {
   float previousX = mouseX;
 
 void draw() {
-  background(0, 0, 255);
-  lights();
+  background(255, 255, 255);
+  directionalLight(50, 100, 125, 10,10,10);
+  ambientLight(102,102,102);
   translate(width/2, height/2, 0);
   rotateX(angleX);
   rotateZ(angleZ);
+  fill(0, 255, 0);
   box(200, 10, 200);
+  
   translate(100, 0, 0);
 }
 
@@ -40,7 +43,15 @@ void mouseDragged()
   previousY = mouseY;
 }
 
+float bound(float val){
+  if(val<0.2){
+    return 0.2;
+  } else if(val>1.5){
+    return 1.5;
+  } else return val;
+}
+
 void mouseWheel(MouseEvent event) {
   float e = event.getCount();
-  speed = (e<0)? speed*1.1 : speed*0.9;
+  speed = (e<0)? bound(speed+0.1) : bound(speed-0.1);
 }
