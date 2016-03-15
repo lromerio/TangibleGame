@@ -1,3 +1,4 @@
+
 void settings() {
   fullScreen(P3D);
 }
@@ -15,6 +16,9 @@ float speed = 1;
 float previousY = mouseY;
 float previousX = mouseX;
 
+float boardEdge = 450;
+float boardThick = 20;
+
 Ball ball;
 PVector center;
 
@@ -28,7 +32,7 @@ void draw() {
   rotateX(angleX);
   rotateZ(angleZ);
   fill(0, 255, 0);
-  box(450, 20, 450);
+  box(boardEdge, boardThick, boardEdge);
 
   ball.update();
   ball.display();
