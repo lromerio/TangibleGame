@@ -5,7 +5,6 @@ import ddf.minim.signals.*;
 import ddf.minim.spi.*;
 import ddf.minim.ugens.*;
 
-
 void settings() {
   fullScreen(P3D);
 }
@@ -63,7 +62,7 @@ void draw() {
 void drawTextures() {
   fill(255, 255, 255);
   textureMode(IMAGE);
-  //upper
+//upper
   beginShape();
   texture(plateImg);
   vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 0, 0);
@@ -71,7 +70,8 @@ void drawTextures() {
   vertex(boardEdge/2, -boardThick/2, boardEdge/2, 450, 450);
   vertex(boardEdge/2, -boardThick/2, -boardEdge/2, 450, 0);
   endShape(CLOSE);
-  //bottom
+  
+//bottom
   textureMode(IMAGE);
   beginShape();
   texture(plateImg);
@@ -80,7 +80,8 @@ void drawTextures() {
   vertex(boardEdge/2, boardThick/2, boardEdge/2, 0, 450);
   vertex(boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
   endShape(CLOSE);
-  //sides
+  
+//sides
   textureMode(IMAGE);
   beginShape();
   texture(sideImg);
@@ -89,6 +90,7 @@ void drawTextures() {
   vertex(boardEdge/2, -boardThick/2, -boardEdge/2, 0, 20);
   vertex(boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
   endShape(CLOSE);
+  
   beginShape();
   textureMode(IMAGE);
   texture(sideImg);
@@ -97,6 +99,7 @@ void drawTextures() {
   vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 450, 20);
   vertex(- boardEdge/2, boardThick/2, boardEdge/2, 450, 0);
   endShape(CLOSE);
+  
   textureMode(IMAGE);
   beginShape();
   texture(sideImg);
@@ -105,6 +108,7 @@ void drawTextures() {
   vertex(boardEdge/2, -boardThick/2, boardEdge/2, 450, 20);
   vertex(boardEdge/2, boardThick/2, boardEdge/2, 450, 0);
   endShape(CLOSE);
+  
   textureMode(IMAGE);
   beginShape();
   texture(sideImg);
