@@ -13,6 +13,7 @@ void setup() {
   player = minim.loadFile("StarWarsTheme.mp3");
   player.play();
   backgroundImg = loadImage("StarWarsBg.jpg");
+  backgroundImg.resize(displayWidth, displayHeight);
   plateImg = loadImage("PlateTexture2.jpg");
   sideImg = loadImage("SideTxt2.jpg");
   f = createFont("Starjedi.ttf", 16, true);
