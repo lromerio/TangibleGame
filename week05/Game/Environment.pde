@@ -30,6 +30,6 @@ class Environment {
     text("Speed : \t\t" + plane.speed, 20, 60);
     textFont(f, 80);
     textAlign(CENTER);
-    //text("Jedi Mind Tricks", width/2, height - 50);
+    text("Jedi Mind Tricks", width/2, height - 50);
   }
 }

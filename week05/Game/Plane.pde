@@ -15,7 +15,7 @@ class Plane {
 
 //_______________________________________________________________
 //Basic Function
-  Plane(float boardEdge, float boardThick) {
+  Plane(float boardEdge, float boardThick){
     previousX = mouseX;
     previousY = mouseY;
     angleX = 0;
