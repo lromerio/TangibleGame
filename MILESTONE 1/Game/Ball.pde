@@ -73,11 +73,12 @@ class Ball {
   void cylinderCollision() {
     PVector norm;
     for(int i = 0; i < cylinders.size(); ++i) {
-      if( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.y) < modeManager.cylinderBaseSize + ball.r) {
-        norm = (new PVector(location.x - cylinders.get(i).x, location.y - cylinders.get(i).y)).normalize();
-        velocity.sub(norm.mult(velocity.dot(norm)).mult(2));
+      if( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.y) <= modeManager.cylinderBaseSize + ball.r) {
+        System.out.println("HIT");
+        //norm = (new PVector(location.x - cylinders.get(i).x, location.y - cylinders.get(i).y)).normalize();
+        //velocity.sub(norm.mult(velocity.dot(norm)).mult(2));
         //boing.trigger();
-        location = norm.mult(modeManager.cylinderBaseSize + r);
+        //location = norm.mult(modeManager.cylinderBaseSize + r);
       }
     }
   }
