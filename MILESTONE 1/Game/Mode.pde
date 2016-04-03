@@ -25,7 +25,10 @@ class Mode {
 
     if ( (x <= plane.boardEdge/2 - cylinderBaseSize/2) && (x >= -plane.boardEdge/2 + cylinderBaseSize/2) &&
       (y <= plane.boardEdge/2 - cylinderBaseSize/2) && (y >= -plane.boardEdge/2 + cylinderBaseSize/2)) {
+      pushMatrix();
+      rotateX(PI/2);
       PVector cylCenter = new PVector(x, y, plane.boardThick/2);
+      popMatrix();
       if(checkCylindersPosition(cylCenter)) {
         cylinders.add(cylCenter);
       }
@@ -55,8 +58,11 @@ class Mode {
       pushMatrix();
       
       if(currentMode == Modes.PLAY) {
-        rotateX(PI/2 + plane.angleX);
+        rotateX(plane.angleX);
         rotateY(plane.angleZ);
+      }
+      else if(currentMode == Modes.ADD_CYLINDER) {
+        rotateX(PI/2);
       }
       translate(cylinders.get(j).x, cylinders.get(j).y, cylinders.get(j).z);
      
