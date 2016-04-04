@@ -23,8 +23,8 @@ class Mode {
     int x = mouseX - width/2;
     int y = mouseY - height/2;
 
-    if ( (x <= plane.boardEdge/2 - cylinderBaseSize/2) && (x >= -plane.boardEdge/2 + cylinderBaseSize/2) &&
-      (y <= plane.boardEdge/2 - cylinderBaseSize/2) && (y >= -plane.boardEdge/2 + cylinderBaseSize/2)) {
+    if ( (x <= plane.boardEdge/2 - cylinderBaseSize) && (x >= -plane.boardEdge/2 + cylinderBaseSize) &&
+      (y <= plane.boardEdge/2 - cylinderBaseSize) && (y >= -plane.boardEdge/2 + cylinderBaseSize)) {
       PVector cylCenter = new PVector(x, y, plane.boardThick/2);
       if(checkCylindersPosition(cylCenter)) {
         cylinders.add(cylCenter);

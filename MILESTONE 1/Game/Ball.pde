@@ -46,7 +46,9 @@ class Ball {
     velocity.add(gravity);
     velocity.add(friction);
     location.add(velocity);
-
+    
+    cylinderCollision();
+    
     if (location.x > plane.boardEdge/2) {
       location.x = plane.boardEdge/2;
       velocity.x *= -1; 
@@ -65,8 +67,6 @@ class Ball {
       velocity.z *= -1; 
       //boing.trigger();
     }
-    
-    cylinderCollision();
   
   }
   
@@ -74,12 +74,15 @@ class Ball {
     PVector norm;
     for(int i = 0; i < cylinders.size(); ++i) {
       if( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) <= modeManager.cylinderBaseSize + ball.r) {
-        System.out.println("HIT");
         norm = (new PVector(location.x - cylinders.get(i).x, 0 ,  location.z - cylinders.get(i).y)).normalize();
-        velocity.sub(norm.mult(velocity.dot(norm)).mult(2));
+        
+        //dobbiamo considerare anche il fatto che sopra addiamo pure la friction!!!
+        location.sub( velocity.normalize().mult(-1*(modeManager.cylinderBaseSize - dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z)) ) );
+        
+        velocity.sub(norm.mult(velocity.dot(norm) * 2));
         //boing.trigger();
-        PVector v = new PVector(cylinders.get(i).x, cylinders.get(i).z ,cylinders.get(i).y);
-        location = v.add(norm.mult(modeManager.cylinderBaseSize + r));
+        //PVector v = new PVector(cylinders.get(i).x, cylinders.get(i).z ,cylinders.get(i).y);
+        //location = v.add(norm.mult(modeManager.cylinderBaseSize + r));
       }
     }
   }
