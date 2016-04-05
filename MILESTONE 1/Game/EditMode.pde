@@ -2,6 +2,10 @@
 
 class EditMode extends Mode {
   
+  void mousePressed() {
+    addCylinder();
+  }
+  
  void display() {
   highView();
  }
@@ -50,6 +54,19 @@ class EditMode extends Mode {
        }
     }
     return true;
+  }
+  
+    void drawCylinders() {    
+    cylinder.side.setFill(color(255, 102, 102));
+    cylinder.top.setFill(color(255, 102, 102));
+    cylinder.bot.setFill(color(255, 102, 102));
+
+    for (int j = 0; j < cylinders.size(); ++j) {
+      pushMatrix();      
+      translate(cylinders.get(j).x, cylinders.get(j).y, cylinders.get(j).z);
+      cylinder.draw();
+      popMatrix();
+    }
   }
   
 }
