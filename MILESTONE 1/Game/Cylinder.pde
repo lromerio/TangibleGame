@@ -1,5 +1,12 @@
-
-
+/**
+ *  Represents a cylinder
+ *  
+ *  @side      shape representing the side surface
+ *  @top       shape representing the top surface
+ *  @bot       shape representing the bot surface
+ *  @c_radius  radius
+ *  @c_height  height
+ */
 class Cylinder {
   
   PShape side;
