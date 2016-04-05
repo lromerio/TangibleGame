@@ -73,11 +73,11 @@ class Ball {
   void cylinderCollision() {
     PVector norm;
     for(int i = 0; i < cylinders.size(); ++i) {
-      if( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) <= modeManager.cylinderBaseSize + ball.r) {
+      if( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) <= cylinder.c_radius + ball.r) {
         norm = (new PVector(location.x - cylinders.get(i).x, 0 ,  location.z - cylinders.get(i).y)).normalize();
         
         //dobbiamo considerare anche il fatto che sopra addiamo pure la friction!!!
-        location.sub( velocity.normalize().mult(-1*(modeManager.cylinderBaseSize - dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z)) ) );
+        location.sub( velocity.normalize().mult(-1*(cylinder.c_radius - dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z)) ) );
         
         velocity.sub(norm.mult(velocity.dot(norm) * 2));
         //boing.trigger();

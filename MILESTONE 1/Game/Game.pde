@@ -11,6 +11,7 @@ import ddf.minim.ugens.*;
 //Objects
 Ball ball;
 Plane plane;
+Cylinder cylinder;
 ArrayList<PVector> cylinders;
 Environment environment;
 Minim minim;
@@ -37,10 +38,10 @@ void setup() {
   environment = new Environment();
   ball = new Ball(20);
   plane = new Plane(450, 20);
+  cylinder = new Cylinder(30, 30, 40);
   modeManager = new Mode();
   currentMode = Modes.PLAY;
   cylinders = new ArrayList<PVector>();
-  modeManager.createCylinder();
 }
 
 void draw() {
