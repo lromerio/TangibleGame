@@ -53,7 +53,7 @@ void mousePressed() {
 }
 
 void mouseWheel(MouseEvent event) {
-  currentMode.mouseWheel();
+  currentMode.mouseWheel(event);
 }
 
 void keyPressed() {
