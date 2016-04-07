@@ -1,4 +1,6 @@
-
+/**
+ * Represents a game mode.
+ */
 abstract class Mode {
   
   abstract void display();

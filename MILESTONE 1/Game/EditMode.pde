@@ -1,5 +1,6 @@
-
-
+/**
+ * Editing mode. Allows the user to add some cylinders on the plane.
+ */
 class EditMode extends Mode {
   
   void mousePressed() {

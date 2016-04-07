@@ -1,4 +1,6 @@
-
+/**
+ * Playing mode. The user tilts the plane dragging the mouse.
+ */
 class PlayMode extends Mode {
 
   void mouseDragged() {

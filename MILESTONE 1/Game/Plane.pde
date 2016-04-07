@@ -1,4 +1,16 @@
-
+/**
+ *  Represents the plane.
+ *  
+ *  @previousX   last x coordinate of the mouse.
+ *  @previousY   last y coordinate of the mouse.
+ *  @angleX      x angle of the inclination.
+ *  @angleZ      z angle of the inclination.
+ *  @speed       speed of the tilting movement.
+ *  @boardEdge   lenght of the edge.
+ *  @boardThick  thickness of the plane.
+ *  @plateImg    image on top/bot.
+ *  @sideImg     image on the side.
+ */
 class Plane {
   
 //_______________________________________________________________

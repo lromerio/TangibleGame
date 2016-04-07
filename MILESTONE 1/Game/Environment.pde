@@ -1,12 +1,22 @@
-  
+/**
+ *  All this class is a BONUS. Represents the environment of the game,
+ *  containing the background, the plane skin, and sounds.
+ *
+ *  @backgroundImg background of the game.
+ *  @f             font for the stats.
+ *
+ *
+ *  @g             DUNNO
+ */
 class Environment {
 
 //_______________________________________________________________
 //Attributes
     PImage backgroundImg;
-    AudioPlayer player;
     PFont f;
     final float g;
+    
+    //AudioPlayer player;
     
 //_______________________________________________________________
 //Functions
@@ -14,10 +24,12 @@ class Environment {
   Environment() {
     backgroundImg = loadImage("StarWarsBg.jpg");
     backgroundImg.resize(displayWidth, displayHeight);
-    player = minim.loadFile("StarWarsTheme.mp3");
+    //player = minim.loadFile("StarWarsTheme.mp3");
     //player.play();
     f = createFont("Starjedi.ttf", 16, true);
-    g = 1.1;
+    
+    
+    g = 1.1; //NOT USED???
   }
 
   void starWarsThemed() {
