@@ -16,8 +16,10 @@ class Cylinder {
   float c_radius;
   float c_height;
   
+/**
+ * Constructs a cylinder with a given radius, height and resolution(number of edges).
+ */
  Cylinder(float c_radius, float c_height, int resolution) {
-   
    side = new PShape();
    top = new PShape();
    bot = new PShape();
@@ -57,8 +59,10 @@ class Cylinder {
     bot.endShape();
 }
 
+/**
+ * Draws the cylinder.
+ */
 void draw() {
-  
   shape(cylinder.side);
   shape(cylinder.top);
   shape(cylinder.bot);
