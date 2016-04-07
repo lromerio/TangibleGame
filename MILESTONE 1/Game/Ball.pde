@@ -55,25 +55,35 @@ class Ball {
     location.add(velocity);
 
     cylinderCollision();
+    
+    float alpha;
 
     if (location.x > plane.boardEdge/2) {
+      alpha = Math.abs(location.x - plane.boardEdge/2)*velocity.x/velocity.z;
+      location.z = location.z - alpha;
       location.x = plane.boardEdge/2;
+      
       velocity.x *= -1; 
-
       //BONUS
       //boing.trigger();
     } else if (location.x < -plane.boardEdge/2) {
+      alpha = Math.abs(location.x - plane.boardEdge/2)*velocity.x/velocity.z;
+      location.z = location.z + alpha;
       location.x = -plane.boardEdge/2;
       velocity.x *= -1; 
       //BONUS
       //boing.trigger();
     }
     if (location.z > plane.boardEdge/2) {
+      alpha = Math.abs(location.z - plane.boardEdge/2)*velocity.z/velocity.x;
+      location.x = location.x - alpha;
       location.z = plane.boardEdge/2;
       velocity.z *= -1; 
       //BONUS
       //boing.trigger();
     } else if (location.z < -plane.boardEdge/2) {
+      alpha = Math.abs(location.z - plane.boardEdge/2)*velocity.z/velocity.x;
+      location.x = location.x + alpha;
       location.z = -plane.boardEdge/2;
       velocity.z *= -1; 
       //BONUS
