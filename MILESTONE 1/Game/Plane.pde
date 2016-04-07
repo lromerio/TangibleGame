@@ -24,6 +24,12 @@ class Plane {
     float boardThick;
     PImage plateImg;
     PImage sideImg;
+    PShape upper;
+    PShape bottom;
+    PShape side1;
+    PShape side2;
+    PShape side3;
+    PShape side4;
 
 //_______________________________________________________________
 //Basic Function
@@ -37,6 +43,61 @@ class Plane {
     this.boardThick = boardThick;
     plateImg = loadImage("PlateTexture2.jpg");
     sideImg = loadImage("SideTxt2.jpg");
+    
+    upper = createShape();
+      upper.beginShape();
+      upper.texture(plateImg);
+      upper.vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 0, 0);
+      upper.vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 0, 450);
+      upper.vertex(boardEdge/2, -boardThick/2, boardEdge/2, 450, 450);
+      upper.vertex(boardEdge/2, -boardThick/2, -boardEdge/2, 450, 0);
+      upper.endShape();
+    
+     bottom = createShape();
+      bottom.beginShape();
+      bottom.texture(plateImg);
+      bottom.vertex(- boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
+      bottom.vertex(- boardEdge/2, boardThick/2, boardEdge/2, 0, 450);
+      bottom.vertex(boardEdge/2, boardThick/2, boardEdge/2, 450, 450);
+      bottom.vertex(boardEdge/2, boardThick/2, -boardEdge/2, 450, 0);
+      bottom.endShape();
+
+      side1 = createShape();
+      side1.beginShape();
+      side1.texture(sideImg);
+      side1.vertex(- boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
+      side1.vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 0, 20);
+      side1.vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 450, 20);
+      side1.vertex(- boardEdge/2, boardThick/2, boardEdge/2, 450, 0);
+      side1.endShape();
+
+      side2 = createShape();
+      side2.beginShape();
+      side2.texture(sideImg);
+      side2.vertex(- boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
+      side2.vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 0, 20);
+      side2.vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 450, 20);
+      side2.vertex(- boardEdge/2, boardThick/2, boardEdge/2, 450, 0);
+      side2.endShape();
+      
+      side3 = createShape();
+      side3.beginShape();
+      side3.texture(sideImg);
+      side3.vertex(- boardEdge/2, boardThick/2, boardEdge/2, 0, 0);
+      side3.vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 0, 20);
+      side3.vertex(boardEdge/2, -boardThick/2, boardEdge/2, 450, 20);
+      side3.vertex(boardEdge/2, boardThick/2, boardEdge/2, 450, 0);
+      side3.endShape();
+      
+      side4 = createShape();
+      side4.beginShape();
+      side4.texture(sideImg);
+      side4.vertex(boardEdge/2, boardThick/2, -boardEdge/2, 450, 0);
+      side4.vertex(boardEdge/2, -boardThick/2, -boardEdge/2, 450, 20);
+      side4.vertex(boardEdge/2, -boardThick/2, boardEdge/2, 0, 20);
+      side4.vertex(boardEdge/2, boardThick/2, boardEdge/2, 0, 0);
+      side4.endShape();
+
   }
   
   void display() {
@@ -80,64 +141,12 @@ class Plane {
 
 //_______________________________________________________________
 //Gaphic
-  void drawTextures() {
-      fill(255, 255, 255);
-      textureMode(IMAGE);
-      
-    //upper
-      beginShape();
-      texture(plateImg);
-      vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 0, 0);
-      vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 0, 450);
-      vertex(boardEdge/2, -boardThick/2, boardEdge/2, 450, 450);
-      vertex(boardEdge/2, -boardThick/2, -boardEdge/2, 450, 0);
-      endShape(CLOSE);
-
-    //bottom
-      textureMode(IMAGE);
-      beginShape();
-      texture(plateImg);
-      vertex(- boardEdge/2, boardThick/2, -boardEdge/2, 0, 450);
-      vertex(- boardEdge/2, boardThick/2, boardEdge/2, 450, 450);
-      vertex(boardEdge/2, boardThick/2, boardEdge/2, 0, 450);
-      vertex(boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
-      endShape(CLOSE);
-
-    //sides
-      textureMode(IMAGE);
-      beginShape();
-      texture(sideImg);
-      vertex(- boardEdge/2, boardThick/2, -boardEdge/2, 450, 0);
-      vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 450, 20);
-      vertex(boardEdge/2, -boardThick/2, -boardEdge/2, 0, 20);
-      vertex(boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
-      endShape(CLOSE);
-
-      beginShape();
-      textureMode(IMAGE);
-      texture(sideImg);
-      vertex(- boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
-      vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 0, 20);
-      vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 450, 20);
-      vertex(- boardEdge/2, boardThick/2, boardEdge/2, 450, 0);
-      endShape(CLOSE);
-
-      textureMode(IMAGE);
-      beginShape();
-      texture(sideImg);
-      vertex(- boardEdge/2, boardThick/2, boardEdge/2, 0, 0);
-      vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 0, 20);
-      vertex(boardEdge/2, -boardThick/2, boardEdge/2, 450, 20);
-      vertex(boardEdge/2, boardThick/2, boardEdge/2, 450, 0);
-      endShape(CLOSE);
-
-      textureMode(IMAGE);
-      beginShape();
-      texture(sideImg);
-      vertex(boardEdge/2, boardThick/2, -boardEdge/2, 450, 0);
-      vertex(boardEdge/2, -boardThick/2, -boardEdge/2, 450, 20);
-      vertex(boardEdge/2, -boardThick/2, boardEdge/2, 0, 20);
-      vertex(boardEdge/2, boardThick/2, boardEdge/2, 0, 0);
-      endShape(CLOSE);
+  void drawTextures() {      
+      shape(upper);
+      shape(bottom);
+      shape(side1);
+      shape(side2);
+      shape(side3);
+      shape(side4);
   }
 }
