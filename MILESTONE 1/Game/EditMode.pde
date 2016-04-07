@@ -45,7 +45,7 @@ class EditMode extends Mode {
   }
   
   boolean checkCylindersPosition(PVector center) { 
-    if( dist(center.x, center.y, ball.location.x, ball.location.y) <= cylinder.c_radius + ball.r) {
+    if( dist(center.x, center.y, ball.location.x, ball.location.z) <= cylinder.c_radius + ball.r) {
       return false;
     }
     
@@ -53,6 +53,7 @@ class EditMode extends Mode {
        if( dist(center.x, center.y, cylinders.get(i).x, cylinders.get(i).y) <= 2*cylinder.c_radius) {
          return false;
        }
+       
     }
     return true;
   }
