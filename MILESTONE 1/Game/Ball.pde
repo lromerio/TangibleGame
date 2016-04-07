@@ -90,10 +90,17 @@ class Ball {
     PVector norm;
     for (int i = 0; i < cylinders.size(); ++i) {
       if ( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) <= cylinder.c_radius + ball.r) {
+        
+        PVector direction = velocity.get().normalize().mult(-0.01);
+        
+        while (dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) - (cylinder.c_radius + ball.r) <= 0.1) {
+          location.add(direction);
+        }
+        
         norm = (new PVector(location.x - cylinders.get(i).x, 0, location.z - cylinders.get(i).y)).normalize();
 
         //dobbiamo considerare anche il fatto che sopra addiamo pure la friction!!!
-        location.sub( velocity.normalize().mult(-1*(cylinder.c_radius - dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z)) ) );
+        //location.sub( velocity.normalize().mult(-1*(cylinder.c_radius - dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z)) ) );
 
         velocity.sub(norm.mult(velocity.dot(norm) * 2));
         //PVector v = new PVector(cylinders.get(i).x, cylinders.get(i).z ,cylinders.get(i).y);
