@@ -56,8 +56,6 @@ class Ball {
 
     cylinderCollision();
     
-    float alpha;
-
     if (location.x > plane.boardEdge/2) {
       location.x = plane.boardEdge/2;
       velocity.x *= -1; 
@@ -89,22 +87,21 @@ class Ball {
   void cylinderCollision() {
     PVector norm;
     for (int i = 0; i < cylinders.size(); ++i) {
-      if ( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) <= cylinder.c_radius + ball.r) {
-        
-        PVector direction = velocity.get().normalize().mult(-0.01);
-        
-        while (dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) - (cylinder.c_radius + ball.r) <= 0.1) {
-          location.add(direction);
-        }
-        
+      if ( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) <= cylinder.c_radius + r) {        
         norm = (new PVector(location.x - cylinders.get(i).x, 0, location.z - cylinders.get(i).y)).normalize();
-
+    
         //dobbiamo considerare anche il fatto che sopra addiamo pure la friction!!!
         //location.sub( velocity.normalize().mult(-1*(cylinder.c_radius - dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z)) ) );
+        
+        //velocity.sub(norm.mult(velCopy.dot(norm) * 2));
+        
+        velocity = PVector.sub(velocity, PVector.mult(norm, velocity.dot(norm) * 2));
 
-        velocity.sub(norm.mult(velocity.dot(norm) * 2));
+        PVector cylc = new PVector(cylinders.get(i).x, 0, cylinders.get(i).y);
+        location = PVector.add(cylc, PVector.mult(norm, cylinder.c_radius + r));
+        
         //PVector v = new PVector(cylinders.get(i).x, cylinders.get(i).z ,cylinders.get(i).y);
-        //location = v.add(norm.mult(modeManager.cylinderBaseSize + r));
+        //location = v.add(norm.mult(cylinder.c_radius + r));
         
         //BONUS
         //boing.trigger();
