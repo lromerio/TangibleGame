@@ -1,12 +1,10 @@
 /**
- *  All this class is a BONUS. Represents the environment of the game,
- *  containing the background, the plane skin, and sounds.
+ *  All this class is a BONUS,except for the gravity coefficient. Represents the environment of the game,
+ *  containing the background, the plane texture, and sounds.
  *
  *  @backgroundImg background of the game.
  *  @f             font for the stats.
- *
- *
- *  @g             DUNNO
+ *  @g             gravity coefficient
  */
 class Environment {
 
