@@ -1,5 +1,9 @@
 
-class ModeAdd {
+class Mode {
+  
+  ModeAdd() {
+  
+  }
 
   void addCylinder() {
     pushMatrix();
