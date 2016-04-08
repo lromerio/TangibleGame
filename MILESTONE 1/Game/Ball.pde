@@ -29,11 +29,15 @@ class Ball {
 
   //_______________________________________________________________
   //Functions
+  /**
+   * Initializes all attributes of the ball.
+   */
   Ball(float r) {
     this.location = new PVector(0, 0, 0);
     this.r = r;
     velocity = new PVector(0, 0, 0);
     gravity = new PVector(0, 0, 0);
+    friction = new PVector(0, 0, 0);
     mu = 0.6;
     normalForce = 1;
 
@@ -41,6 +45,9 @@ class Ball {
     //boing = minim.loadSample("LaserBlasts.mp3");
   }
 
+  /**
+   * Updates the position and velocity.
+   */
   void update() {
     gravity.x = sin(plane.angleZ) * environment.g;
     gravity.z = -sin(plane.angleX) * environment.g;
@@ -85,6 +92,9 @@ class Ball {
     cylinderCollision();
   }
 
+ /**
+  * Checks the collision with all cylinders on the plane.
+  */
   void cylinderCollision() {
     PVector norm;
     for (int i = 0; i < cylinders.size(); ++i) {
@@ -102,6 +112,9 @@ class Ball {
     }
   }
 
+ /**
+  * Displays the ball.
+  */
   void display() {
     pushMatrix();
     rotateX(plane.angleX);
