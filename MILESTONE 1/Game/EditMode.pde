@@ -31,7 +31,7 @@ class EditMode extends Mode {
       (mousePos.y <= plane.boardEdge/2 - cylinder.c_radius) && (mousePos.y >= -plane.boardEdge/2 + cylinder.c_radius) ) {
       c = color(50, 200, 100);
     } else {
-      c = color(50, 100, 200);
+        c = color(255, 102, 102);
     }
 
     cylinder.side.setFill(c);
@@ -54,7 +54,7 @@ class EditMode extends Mode {
     shape(plane.upper);
 
     translate(ball.location.x, plane.boardThick/2 + ball.r, - ball.location.z);
-    fill(255, 102, 102);
+    fill(ball.colour);
     sphere(ball.r);
 
     popMatrix();
@@ -102,9 +102,9 @@ class EditMode extends Mode {
    * Draws the cylinders on the plane.
    */
   void drawCylinders() {
-    cylinder.side.setFill(color(255, 102, 102));
-    cylinder.top.setFill(color(255, 102, 102));
-    cylinder.bot.setFill(color(255, 102, 102));
+    cylinder.side.setFill(cylinder.colour);
+    cylinder.top.setFill(cylinder.colour);
+    cylinder.bot.setFill(cylinder.colour);
 
     for (int j = 0; j < cylinders.size(); ++j) {
       pushMatrix();      

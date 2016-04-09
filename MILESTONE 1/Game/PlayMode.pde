@@ -34,9 +34,9 @@ class PlayMode extends Mode {
    * Draws the cylinders on the plane.
    */
   void drawCylinders() {    
-    cylinder.side.setFill(color(255, 102, 102));
-    cylinder.top.setFill(color(255, 102, 102));
-    cylinder.bot.setFill(color(255, 102, 102));
+    cylinder.side.setFill(cylinder.colour);
+    cylinder.top.setFill(cylinder.colour);
+    cylinder.bot.setFill(cylinder.colour);
 
     for (int j = 0; j < cylinders.size(); ++j) {
       pushMatrix();      

@@ -21,6 +21,7 @@ class Ball {
   PVector location;
   PVector velocity;
   PVector gravity;
+  color colour;
 
   //BONUS
   //The bouncing sound
@@ -43,6 +44,7 @@ class Ball {
 
     //BONUS
     //boing = minim.loadSample("LaserBlasts.mp3");
+    colour = color(50, 100, 200);
   }
 
   /**
@@ -120,7 +122,7 @@ class Ball {
     rotateX(plane.angleX);
     rotateZ(plane.angleZ);
     translate(location.x, -r - (plane.boardThick/2), location.z);
-    fill(255, 102, 102);
+    fill(colour);
     sphere(r);
     popMatrix();
   }
