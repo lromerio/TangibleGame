@@ -14,24 +14,41 @@ class Environment {
     PFont f;
     final float g;
     
+    //BONUS
+    //PLayer for the background music
     //AudioPlayer player;
     
 //_______________________________________________________________
 //Functions
-
+  
+  /**
+   * Creates an environment, loading images and sounds, and initialising the attributes
+   */
   Environment() {
+    //BONUS
+    //Star Wars themed background (source: http://imgur.com/gallery/gXpIT), resized to match the display window.
     backgroundImg = loadImage("StarWarsBg.jpg");
     backgroundImg.resize(displayWidth, displayHeight);
+    
+    //BONUS
+    //Plays the Star Wars theme in backgound when the Environment is created.
     //player = minim.loadFile("StarWarsTheme.mp3");
     //player.play();
+    
+    //BONUS
+    //Star Wars themed font to display on the screen (source: http://www.fontspace.com/category/star%20wars)
     f = createFont("Starjedi.ttf", 16, true);
     
     
-    g = 1.1; //NOT USED???
+    g = 1.1;
   }
 
+  /**
+   * Displays a Star Wars themed background and writes on the top left of the screen the tilting angle and speed
+   */
   void starWarsThemed() {
     background(backgroundImg);
+    //Display some of the attributes of the plane
     textFont(f, 20);
     fill(255, 255, 255);
     textAlign(LEFT);
@@ -40,6 +57,5 @@ class Environment {
     text("Speed : \t\t" + plane.speed, 20, 60);
     textFont(f, 80);
     textAlign(CENTER);
-    //text("Jedi Mind Tricks", width/2, height - 50);
   }
 }
