@@ -3,6 +3,12 @@
  */
 class EditMode extends Mode {
 
+  //tappa 6
+  
+  EditMode(){
+     isPaused = true;
+  }
+  
   /*
    * If the mouse is pressed start the procedure to add a new cylinder.
    *

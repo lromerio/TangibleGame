@@ -2,7 +2,9 @@
  * Represents a game mode.
  */
 abstract class Mode {
-  
+  //tappa 6
+  boolean isPaused;
+    
   /*
    * Draws the plane and the ball.
    */

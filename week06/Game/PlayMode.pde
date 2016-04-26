@@ -3,13 +3,19 @@
  */
 class PlayMode extends Mode {
 
+  //tappa 6
+  PlayMode(){
+     isPaused = false;
+  } 
   /*
    * Performs the mouse dragged action of the plane.
    *
    * @see  plane.mouseDraggedPlane
    */
   void mouseDragged() {
-    plane.mouseDraggedPlane();
+    if(mouseY < height-dataVisualisation.height){
+      plane.mouseDraggedPlane();
+    }
   }
 
   /*

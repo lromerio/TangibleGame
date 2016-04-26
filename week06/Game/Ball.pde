@@ -66,20 +66,28 @@ class Ball {
     
     if (location.x > plane.boardEdge/2) {
       location.x = plane.boardEdge/2;
-      velocity.x *= -1; 
+      velocity.x *= -1;
+      //tappa 6
+      lastScore = - velocity.mag();
+      totalScore += lastScore;
       
       //BONUS
       //boing.trigger();
     } else if (location.x < -plane.boardEdge/2) {
       location.x = -plane.boardEdge/2;
       velocity.x *= -1;
-      
+      //tappa 6
+      lastScore = - velocity.mag();
+      totalScore += lastScore;
       //BONUS
       //boing.trigger();
     }
     if (location.z > plane.boardEdge/2) {
       location.z = plane.boardEdge/2;
       velocity.z *= -1; 
+      //tappa 6
+      lastScore = - velocity.mag();
+      totalScore += lastScore;
       
       //BONUS
       //boing.trigger();
@@ -87,6 +95,9 @@ class Ball {
       location.z = -plane.boardEdge/2;
       velocity.z *= -1; 
       
+      //tappa 6
+      lastScore = - velocity.mag();
+      totalScore += lastScore;
       //BONUS
       //boing.trigger();
     }
@@ -101,6 +112,10 @@ class Ball {
     PVector norm;
     for (int i = 0; i < cylinders.size(); ++i) {
       if ( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) <= cylinder.c_radius + r) {        
+        //tappa 6
+        lastScore = velocity.mag();
+        totalScore += lastScore;
+        
         norm = (new PVector(location.x - cylinders.get(i).x, 0, location.z - cylinders.get(i).y)).normalize();
        
         velocity = PVector.sub(velocity, PVector.mult(norm, velocity.dot(norm) * 2));
@@ -108,6 +123,7 @@ class Ball {
         PVector cylc = new PVector(cylinders.get(i).x, 0, cylinders.get(i).y);
         location = PVector.add(cylc, PVector.mult(norm, cylinder.c_radius + r));
 
+        
         //BONUS
         //boing.trigger();
       }
