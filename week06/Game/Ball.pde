@@ -68,8 +68,8 @@ class Ball {
       location.x = plane.boardEdge/2;
       velocity.x *= -1;
       //tappa 6
-      lastScore = - velocity.mag();
-      totalScore += lastScore;
+      scores.lastScore = - velocity.mag();
+      scores.totalScore += scores.lastScore;
       
       //BONUS
       //boing.trigger();
@@ -77,8 +77,8 @@ class Ball {
       location.x = -plane.boardEdge/2;
       velocity.x *= -1;
       //tappa 6
-      lastScore = - velocity.mag();
-      totalScore += lastScore;
+      scores.lastScore = - velocity.mag();
+      scores.totalScore += scores.lastScore;
       //BONUS
       //boing.trigger();
     }
@@ -86,8 +86,8 @@ class Ball {
       location.z = plane.boardEdge/2;
       velocity.z *= -1; 
       //tappa 6
-      lastScore = - velocity.mag();
-      totalScore += lastScore;
+      scores.lastScore = - velocity.mag();
+      scores.totalScore += scores.lastScore;
       
       //BONUS
       //boing.trigger();
@@ -96,8 +96,8 @@ class Ball {
       velocity.z *= -1; 
       
       //tappa 6
-      lastScore = - velocity.mag();
-      totalScore += lastScore;
+      scores.lastScore = - velocity.mag();
+      scores.totalScore += scores.lastScore;
       //BONUS
       //boing.trigger();
     }
@@ -113,8 +113,8 @@ class Ball {
     for (int i = 0; i < cylinders.size(); ++i) {
       if ( dist(cylinders.get(i).x, cylinders.get(i).y, location.x, location.z) <= cylinder.c_radius + r) {        
         //tappa 6
-        lastScore = velocity.mag();
-        totalScore += lastScore;
+        scores.lastScore = velocity.mag();
+        scores.totalScore += scores.lastScore;
         
         norm = (new PVector(location.x - cylinders.get(i).x, 0, location.z - cylinders.get(i).y)).normalize();
        

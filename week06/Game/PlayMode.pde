@@ -13,7 +13,7 @@ class PlayMode extends Mode {
    * @see  plane.mouseDraggedPlane
    */
   void mouseDragged() {
-    if(mouseY < height-dataVisualisation.height){
+    if(mouseY < height-scores.dataVisualisation.height){
       plane.mouseDraggedPlane();
     }
   }
@@ -34,6 +34,7 @@ class PlayMode extends Mode {
     plane.display();
     ball.update();
     ball.display();
+    
   }
 
   /*
