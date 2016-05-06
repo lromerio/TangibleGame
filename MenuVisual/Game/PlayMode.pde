@@ -6,6 +6,7 @@ class PlayMode extends Mode {
   //tappa 6
   PlayMode(){
      isPaused = false;
+     isPlayMode = true;
   } 
   /*
    * Performs the mouse dragged action of the plane.

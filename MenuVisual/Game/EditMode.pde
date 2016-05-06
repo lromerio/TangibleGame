@@ -7,6 +7,7 @@ class EditMode extends Mode {
   
   EditMode(){
      isPaused = true;
+     isPlayMode = true;
   }
   
   /*

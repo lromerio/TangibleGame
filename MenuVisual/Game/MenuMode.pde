@@ -6,6 +6,7 @@ class MenuMode extends Mode {
   boolean swOver;
   boolean pkOver;
   boolean playOver;
+  boolean helpOver;
 
   int env;
 
@@ -13,6 +14,15 @@ class MenuMode extends Mode {
 
   MenuMode() {
     isPaused = true;
+    isPlayMode = false;
+
+    cylinders = new ArrayList<PVector>();
+    scores = new ScoreInterface();
+    environment = new Environment();
+
+    ball = new Ball(20);
+    plane = new Plane(450, 20);
+    cylinder = new Cylinder(30, 30, 40);
 
     env = -1;
   }
@@ -43,9 +53,15 @@ class MenuMode extends Mode {
     else fill(255);
     rect(140, height/4 + 300, 200, 40);
     //Play
-    if (playOver) fill(155); 
+    if (playOver && env != -1) fill(155); 
     else fill(255);
     rect(width-300, height-100, 200, 40);
+
+    //Help
+    if (helpOver) fill(155); 
+    else fill(255);
+    rect(width-60, 20, 40, 40);
+
 
 
     //inserire scritte nei rect? o immagine...
@@ -68,8 +84,10 @@ class MenuMode extends Mode {
       env = 1;
     } else if (pkOver) {
       env = 2;
-    } else if (playOver) {
+    } else if (playOver && env != -1) {
       currentMode = new PlayMode();
+    } else if (helpOver) {
+      currentMode = new HelpMode(currentMode);
     }
   }
 
@@ -82,6 +100,7 @@ class MenuMode extends Mode {
     swOver = false;
     pkOver = false;
     playOver = false;
+    helpOver = false;
 
     if (x > 140 && x < 340) {
       if (y > (height/4 + 100) && y < (height/4 + 140)) {
@@ -93,6 +112,8 @@ class MenuMode extends Mode {
       }
     } else if (x > (width-300) && x < (width-100) && y > (height-100) && y < (height-60)) {
       playOver = true;
+    } else if ( x > width-60 && x < width-20 && y > 20 && y < 60) {
+      helpOver = true;
     }
   }
 
@@ -122,42 +143,4 @@ class MenuMode extends Mode {
     environment = new Environment();
     currentMode = new PlayMode();
   }
-
-  /*
-  //======================================================================== 
-   //import the ControlP5 library
-   //Define the new GUI
-   
-   void setup() {
-   //set the window size
-   size(200, 200);
-   noStroke();
-   //Create the new GUI
-   gui = new ControlP5(this);
-   //Add a Button
-   gui.addButton("PressMe")
-   //Set the position of the button : (X,Y)
-   .setPosition(50, 50)
-   //Set the size of the button : (X,Y)
-   .setSize(100, 100)
-   //Set the pre-defined Value of the button : (int)
-   .setValue(0)
-   //set the way it is activated : RELEASE the mouseboutton or PRESS it
-   .activateBy(ControlP5.RELEASE);
-   ;
-   }
-   
-   public void PressMe(int value) {
-   // This is the place for the code, that is activated by the buttonb
-   println("Button pressed");
-   }
-   
-   public void controlEvent(ControlEvent theEvent) {
-   //Is called whenever a GUI Event happened
-   }
-   
-   void draw() {
-   //Do whatever you want
-   }
-   */
 }

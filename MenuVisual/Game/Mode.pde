@@ -4,6 +4,7 @@
 abstract class Mode {
   //tappa 6
   boolean isPaused;
+  boolean isPlayMode;
     
   /*
    * Draws the plane and the ball.
