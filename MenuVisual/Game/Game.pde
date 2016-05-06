@@ -10,7 +10,6 @@
 //import ddf.minim.signals.*;
 //import ddf.minim.spi.*;
 //import ddf.minim.ugens.*;
-import controlP5.*;
 
 //_______________________________________________________________
 //Objects
@@ -25,8 +24,6 @@ ScoreInterface scores;
 
 //minim: object for loading playing sounds.
 //Minim minim;
-ControlP5 gui;    //for buttons
-int env;
 
 
 //environment: for personalised background and theme.
@@ -51,70 +48,14 @@ void setup() {
 
   //BONUS
   //minim = new Minim(this);
-
-  env = 0;
-  gui = new ControlP5(this);
-
-  // Add Buttons
-  gui.addButton("Classic")
-    .setValue(0)
-    .setPosition(140, height/4 + 100)
-    .setSize(200, 40)
-    .activateBy(ControlP5.RELEASE);
-    ;
-  gui.addButton("StarWars")
-    .setValue(0)
-    .setPosition(140, height/4 + 200)
-    .setSize(200, 40)
-    .activateBy(ControlP5.RELEASE);
-    ;
-  gui.addButton("ThirdOne")
-    .setValue(0)
-    .setPosition(140, height/4 + 300)
-    .setSize(200, 40)
-    .activateBy(ControlP5.RELEASE);
-    ;
-  gui.addButton("Play")
-    .setValue(0)
-    .setPosition(width-300, height-100)
-    .setSize(200, 40)
-    .activateBy(ControlP5.RELEASE);
-    ;
+  environment = new Environment();
 }
 
 void draw() {
-  //BONUS
-  //environment.starWarsThemed();
-
   directionalLight(229, 255, 204, 0, 1, -1);
   ambientLight(102, 102, 102);
-  //pushMatrix();
-  //translate(width/2, height/2, 0);
-
-
   currentMode.display();
-  currentMode.drawCylinders();  
-
-  //scores.drawScores();
 } 
-
-void Classic() {
-  env = 0;
-}
-void StarWars() {
-  env = 1;
-}
-void ThirdOne() {
-  env = 2;
-}
-
-/*
-void Play() {
-  gui.hide();
-  environment.starWarsThemed(); 
-  currentMode = new PlayMode();
-}
-*/
 
 /*
  * Performs the mouse dragged action of the current mode. 

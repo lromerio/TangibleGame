@@ -31,10 +31,16 @@ class PlayMode extends Mode {
    * Updates and displays the plane and the ball.
    */
   void display() {
+    environment.starWarsThemed();
+    
+    pushMatrix();
+    translate(width/2, height/2, 0);
     plane.display();
     ball.update();
     ball.display();
-    
+    drawCylinders();
+    scores.drawScores();
+    popMatrix();    
   }
 
   /*

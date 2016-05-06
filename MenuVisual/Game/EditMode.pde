@@ -25,6 +25,9 @@ class EditMode extends Mode {
    * @see  highView
    */
   void display() {
+    environment.starWarsThemed();
+    pushMatrix();
+    translate(width/2, height/2, 0);
     highView();
 
     //BONUS
@@ -47,6 +50,10 @@ class EditMode extends Mode {
     pushMatrix();      
     translate( mouseX - width/2, mouseY - height/2, plane.boardThick/2);
     cylinder.draw();
+    popMatrix();
+    
+    drawCylinders();
+    scores.drawScores();
     popMatrix();
   }
 
