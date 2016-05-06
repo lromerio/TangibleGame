@@ -16,14 +16,6 @@ class MenuMode extends Mode {
     isPaused = true;
     isPlayMode = false;
 
-    cylinders = new ArrayList<PVector>();
-    scores = new ScoreInterface();
-    environment = new Environment();
-
-    ball = new Ball(20);
-    plane = new Plane(450, 20);
-    cylinder = new Cylinder(30, 30, 40);
-
     env = -1;
   }
 
@@ -85,7 +77,7 @@ class MenuMode extends Mode {
     } else if (pkOver) {
       env = 2;
     } else if (playOver && env != -1) {
-      currentMode = new PlayMode();
+      startGame();
     } else if (helpOver) {
       currentMode = new HelpMode(currentMode);
     }
@@ -131,7 +123,7 @@ class MenuMode extends Mode {
       fill(0, 255, 0);
       rect(width/2, height/4, width/2-100, height/2);
       break;
-    case 2: //thirdone
+    case 2: //pokemon
       fill(0, 0, 255);
       rect(width/2, height/4, width/2-100, height/2);
       break;
@@ -139,8 +131,12 @@ class MenuMode extends Mode {
   }
 
   void startGame() {
-    //inserire if per selezionare uno dei tre
-    environment = new Environment();
+    environment = new Environment(env);
+    cylinders = new ArrayList<PVector>();
+    scores = new ScoreInterface();
+    ball = new Ball(20);
+    plane = new Plane(450, 20);
+    cylinder = new Cylinder(30, 30, 40);
     currentMode = new PlayMode();
   }
 }
