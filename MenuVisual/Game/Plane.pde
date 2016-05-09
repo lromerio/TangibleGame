@@ -27,8 +27,6 @@ class Plane {
   float speed;
   float boardEdge;
   float boardThick;
-  PImage plateImg;
-  PImage sideImg;
 
   //the plane is not implemented by a single box but rather with 6 PShapes, so that it's possible to add different textures to each side
   PShape upper;
@@ -59,30 +57,11 @@ class Plane {
     //Dimensions
     this.boardEdge = boardEdge;
     this.boardThick = boardThick;
-    
-    
-    //Initialize Plane images
-    switch(environment.env) {
-    case 0: //classic
-      plateImg = loadImage("PlateTextureClassic.jpg");
-      sideImg = loadImage("PlateTextureClassic.jpg");      
-      break;
-    case 1: //starwars
-      //BONUS
-      //Star Wars themed textures (http://www.moddb.com/games/star-wars-jedi-knight-ii respectively)
-      plateImg = loadImage("PlateTexture2.jpg");
-      sideImg = loadImage("SideTxt2.jpg");      
-      break;
-    case 2: //thirdone
-      plateImg = loadImage("PlateTexturePokemon.jpg");
-      sideImg = loadImage("PlateTexturePokemon.jpg");      
-      break;
-    }
 
     //Top side
     upper = createShape();
     upper.beginShape();
-    upper.texture(plateImg);
+    upper.texture(environment.plateImg);
     upper.vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 0, 0);
     upper.vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 0, 450);
     upper.vertex(boardEdge/2, -boardThick/2, boardEdge/2, 450, 450);
@@ -94,7 +73,7 @@ class Plane {
     bottom.beginShape();
     //BONUS
     //texture
-    bottom.texture(plateImg);
+    bottom.texture(environment.plateImg);
     bottom.vertex(- boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
     bottom.vertex(- boardEdge/2, boardThick/2, boardEdge/2, 0, 450);
     bottom.vertex(boardEdge/2, boardThick/2, boardEdge/2, 450, 450);
@@ -106,7 +85,7 @@ class Plane {
     side1.beginShape();
     //BONUS
     //texture
-    side1.texture(sideImg);
+    side1.texture(environment.sideImg);
     side1.vertex(- boardEdge/2, boardThick/2, -boardEdge/2, 0, 0);
     side1.vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 0, 20);
     side1.vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 450, 20);
@@ -118,7 +97,7 @@ class Plane {
     side2.beginShape();
     //BONUS
     //texture
-    side2.texture(sideImg);
+    side2.texture(environment.sideImg);
     side2.vertex(- boardEdge/2, boardThick/2, -boardEdge/2, 450, 0);
     side2.vertex(- boardEdge/2, -boardThick/2, -boardEdge/2, 450, 20);
     side2.vertex(boardEdge/2, -boardThick/2, -boardEdge/2, 0, 20);
@@ -130,7 +109,7 @@ class Plane {
     side3.beginShape();
     //BONUS
     //texture
-    side3.texture(sideImg);
+    side3.texture(environment.sideImg);
     side3.vertex(- boardEdge/2, boardThick/2, boardEdge/2, 0, 0);
     side3.vertex(- boardEdge/2, -boardThick/2, boardEdge/2, 0, 20);
     side3.vertex(boardEdge/2, -boardThick/2, boardEdge/2, 450, 20);
@@ -142,7 +121,7 @@ class Plane {
     side4.beginShape();
     //BONUS
     //texture
-    side4.texture(sideImg);
+    side4.texture(environment.sideImg);
     side4.vertex(boardEdge/2, boardThick/2, -boardEdge/2, 450, 0);
     side4.vertex(boardEdge/2, -boardThick/2, -boardEdge/2, 450, 20);
     side4.vertex(boardEdge/2, -boardThick/2, boardEdge/2, 0, 20);

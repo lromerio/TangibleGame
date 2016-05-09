@@ -19,10 +19,6 @@ class EnterMode extends Mode {
     textSize(50);
     text("Visual Programming Project", width/2, 120);
 
-    textSize(15);
-    text("Menu (riprendi/new game...eventualemente riposizionare e mettere statistiche sulla destra):", 500, height/4 + 50);
-
-
     isOver();    
     //Resume
     if (resumeOver) fill(155); 
@@ -39,7 +35,16 @@ class EnterMode extends Mode {
     if (helpOver) fill(155); 
     else fill(255);
     rect(width-60, 20, 40, 40);
+
+    fill(0);
+    textSize(20);
+    text("Resume", 240, height/4 + 127);
+    text("New Game", 240, height/4 + 227);    //inserire font rispettivi
     
+    textSize(30);
+    text("?", width-40, 50);
+
+
     pushMatrix();
     translate(width/2, height/2, 0);
     scores.drawScores();

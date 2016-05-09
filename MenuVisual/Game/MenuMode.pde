@@ -40,26 +40,34 @@ class MenuMode extends Mode {
     if (swOver) fill(155); 
     else fill(255);
     rect(140, height/4 + 200, 200, 40);
-    //ThirdOne
+    //Pokémon
     if (pkOver) fill(155); 
     else fill(255);
     rect(140, height/4 + 300, 200, 40);
     //Play
-    if (playOver && env != -1) fill(155); 
-    else fill(255);
-    rect(width-300, height-100, 200, 40);
+    if (env != -1) {
+      if (playOver) fill(155); 
+      else fill(255);
+      rect(width-300, height-100, 200, 40);
+    }
 
     //Help
     if (helpOver) fill(155); 
     else fill(255);
     rect(width-60, 20, 40, 40);
 
-
-
     //inserire scritte nei rect? o immagine...
     fill(0);
     textSize(20);
     text("Classic", 240, height/4 + 127);
+    text("Star Wars", 240, height/4 + 227);    //inserire font rispettivi
+    text("Pokémon", 240, height/4 + 327);
+    text("Play", width-200, height-73);
+
+    textSize(30);
+    text("?", width-40, 50);
+
+
 
     drawPreview();
   }

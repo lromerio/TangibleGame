@@ -11,9 +11,12 @@ class Environment {
   //_______________________________________________________________
   //Attributes
   PImage backgroundImg;
+  PImage plateImg;
+  PImage sideImg;
+
   PFont f;
   int env;
-  
+
   final float g;
 
   //BONUS
@@ -28,7 +31,7 @@ class Environment {
    */
   Environment(int env) {    
     g = 1.1;
-    
+
     this.env = env;
 
     switch(env) {
@@ -47,7 +50,10 @@ class Environment {
   void classicThemed() {
     backgroundImg = loadImage("classicBg.jpg");
     backgroundImg.resize(displayWidth, displayHeight);
-    
+
+    plateImg = loadImage("PlateTextureClassic.jpg");
+    sideImg = loadImage("PlateTextureClassic.jpg");
+
     //TODO stabilire font classic-->da rimettere anche prima di tornare al menu principale ("NewGame")
   }
 
@@ -56,6 +62,9 @@ class Environment {
     //Star Wars themed background (source: http://imgur.com/gallery/gXpIT), resized to match the display window.
     backgroundImg = loadImage("StarWarsBg.jpg");
     backgroundImg.resize(displayWidth, displayHeight);
+
+    plateImg = loadImage("PlateTexture2.jpg");
+    sideImg = loadImage("SideTxt2.jpg");      
 
     //BONUS
     //Plays the Star Wars theme in backgound when the Environment is created.
@@ -73,6 +82,9 @@ class Environment {
     //Star Wars themed background (source: http://imgur.com/gallery/gXpIT), resized to match the display window.
     backgroundImg = loadImage("pokemonBg.jpg");
     backgroundImg.resize(displayWidth, displayHeight);
+
+    plateImg = loadImage("PlateTexturePokemon.jpg");
+    sideImg = loadImage("PlateTexturePokemon.jpg");      
 
     //BONUS
     //Plays the Star Wars theme in backgound when the Environment is created.
