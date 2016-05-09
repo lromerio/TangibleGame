@@ -8,6 +8,11 @@ class MenuMode extends Mode {
   boolean playOver;
   boolean helpOver;
 
+  PImage PreviewSW;
+  PImage PreviewC;
+  PImage PreviewPK;
+
+
   int env;
 
   // Non possiamo fare enumeration qui, per ora int...da valutare
@@ -15,6 +20,11 @@ class MenuMode extends Mode {
   MenuMode() {
     isPaused = true;
     isPlayMode = false;
+
+    PreviewC = loadImage("PreviewC.JPG");
+    PreviewSW = loadImage("PreviewSW.JPG");
+    PreviewPK = loadImage("PreviewPK.JPG");
+
 
     env = -1;
   }
@@ -70,6 +80,8 @@ class MenuMode extends Mode {
 
 
     drawPreview();
+
+    fill(0);
   }
 
 
@@ -120,20 +132,18 @@ class MenuMode extends Mode {
   void drawPreview() {
 
     //disegno immagine in base a valore corrente di env
+    fill(255);
     switch(env) {
     case -1:
       break;
     case 0: //classic
-      fill(255, 0, 0);
-      rect(width/2, height/4, width/2-100, height/2);
+      image(PreviewC, width/2, height/4, width/2-100, height/2);
       break;
     case 1: //starwars
-      fill(0, 255, 0);
-      rect(width/2, height/4, width/2-100, height/2);
+      image(PreviewSW, width/2, height/4, width/2-100, height/2);
       break;
     case 2: //pokemon
-      fill(0, 0, 255);
-      rect(width/2, height/4, width/2-100, height/2);
+      image(PreviewPK, width/2, height/4, width/2-100, height/2);
       break;
     }
   }
