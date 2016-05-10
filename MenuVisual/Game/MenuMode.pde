@@ -11,7 +11,7 @@ class MenuMode extends Mode {
   PImage PreviewSW;
   PImage PreviewC;
   PImage PreviewPK;
-
+  PImage backgroundImg;
 
   int env;
 
@@ -24,13 +24,14 @@ class MenuMode extends Mode {
     PreviewC = loadImage("PreviewC.JPG");
     PreviewSW = loadImage("PreviewSW.JPG");
     PreviewPK = loadImage("PreviewPK.JPG");
-
+    backgroundImg = loadImage("MenuBack1.jpg");
+    backgroundImg.resize(displayWidth, displayHeight);
 
     env = -1;
   }
 
   void display() {
-    background(0);
+    background(backgroundImg);
 
     fill(255);
     textAlign(CENTER);

@@ -80,7 +80,7 @@ class Environment {
   void pokemonThemed() {
     //BONUS
     //Star Wars themed background (source: http://imgur.com/gallery/gXpIT), resized to match the display window.
-    backgroundImg = loadImage("pokemonBg.jpg");
+    backgroundImg = loadImage("pok2.png");
     backgroundImg.resize(displayWidth, displayHeight);
 
     plateImg = loadImage("PlateTexturePokemon.jpg");
