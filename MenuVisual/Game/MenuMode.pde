@@ -82,7 +82,7 @@ class MenuMode extends Mode {
 
     drawPreview();
 
-    fill(0);
+    //fill(0);
   }
 
 

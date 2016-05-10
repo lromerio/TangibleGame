@@ -54,6 +54,7 @@ void setup() {
 void draw() {
   directionalLight(229, 255, 204, 0, 1, -1);
   ambientLight(102, 102, 102);
+  
   currentMode.display();
 } 
 

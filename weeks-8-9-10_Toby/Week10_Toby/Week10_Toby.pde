@@ -10,7 +10,6 @@ void settings() {
 }
 
 void setup() {
-  bestCandidates = new ArrayList<Integer>();
   String[] cameras = Capture.list();
   if (cameras.length == 0) {
     println("There are no cameras available for capture.");
@@ -37,10 +36,13 @@ void draw() {
   result = brightnessThresholding(result, 30, 220);
   result = sobel(result);
   //image(result, 0, 0);
-  hough(result, 100, 4);
+  hough(result, 200, 10);
 }
 
 void hough(PImage edgeImg, int minVotes, int nLines) {
+
+  bestCandidates = new ArrayList<Integer>();
+
   float discretizationStepsPhi = 0.06f;
   float discretizationStepsR = 2.5f;
   // dimensions of the accumulator
@@ -75,16 +77,9 @@ void hough(PImage edgeImg, int minVotes, int nLines) {
       bestCandidates.add(i);
     }
   }
-  
-  //TEST
-  println("prima " + bestCandidates.size());
 
   //Sort bestCandidates
   Collections.sort(bestCandidates, new HoughComparator(accumulator));
-
-   //TEST
-   println("dopo " + bestCandidates.size());
-
 
   /*
   PImage houghImg = createImage(rDim + 2, phiDim + 2, ALPHA);
@@ -97,10 +92,10 @@ void hough(PImage edgeImg, int minVotes, int nLines) {
    return houghImg;
    */
 
-  for (int i = 0; i < nLines; ++i) {
+  for (int i = 0; i < min(nLines, bestCandidates.size()); ++i) {
 
     int idx = bestCandidates.get(i);
-    
+
     // first, compute back the (r, phi) polar coordinates:
     int accPhi = (int) (idx / (rDim + 2)) - 1;
     int accR = idx - (accPhi + 1) * (rDim + 2) - 1;

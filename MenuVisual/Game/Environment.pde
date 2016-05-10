@@ -15,7 +15,7 @@ class Environment {
   PImage sideImg;
 
   PFont f;
-  int env;
+  //int env;
 
   final float g;
 
@@ -32,7 +32,7 @@ class Environment {
   Environment(int env) {    
     g = 1.1;
 
-    this.env = env;
+    //this.env = env;
 
     switch(env) {
     case 0: //classic
