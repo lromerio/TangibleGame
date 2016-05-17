@@ -1,5 +1,6 @@
 import processing.video.*;
 import java.util.Collections;    //for sorting
+import java.util.List;
 
 Capture cam;
 PImage img;
@@ -36,34 +37,51 @@ void draw() {
   result = brightnessThresholding(result, 30, 220);
   result = sobel(result);
   //image(result, 0, 0);
-  hough(result, 200, 10);
+  getIntersections(hough(result, 200, 10));
 }
 
-void hough(PImage edgeImg, int minVotes, int nLines) {
+ArrayList<PVector> hough(PImage edgeImg, int minVotes, int nLines) {
 
   bestCandidates = new ArrayList<Integer>();
 
   float discretizationStepsPhi = 0.06f;
   float discretizationStepsR = 2.5f;
+  
   // dimensions of the accumulator
   int phiDim = (int) (Math.PI / discretizationStepsPhi);
   int rDim = (int) (((edgeImg.width + edgeImg.height) * 2 + 1) / discretizationStepsR);
+  
   // our accumulator (with a 1 pix margin around)
   int[] accumulator = new int[(phiDim + 2) * (rDim + 2)];
+
+  // pre-compute the sin and cos values
+  float[] tabSin = new float[phiDim];
+  float[] tabCos = new float[phiDim];
+  float ang = 0;
+  float inverseR = 1.f / discretizationStepsR;
+  for (int accPhi = 0; accPhi < phiDim; ang += discretizationStepsPhi, accPhi++) {
+    
+    // we can also pre-multiply by (1/discretizationStepsR) since we need it in the Hough loop
+    tabSin[accPhi] = (float) (Math.sin(ang) * inverseR);
+    tabCos[accPhi] = (float) (Math.cos(ang) * inverseR);
+  }
+
   // Fill the accumulator: on edge points (ie, white pixels of the edge
   // image), store all possible (r, phi) pairs describing lines going
   // through the point.
   for (int y = 0; y < edgeImg.height; y++) {
     for (int x = 0; x < edgeImg.width; x++) {
+      
       // Are we on an edge?
       if (brightness(edgeImg.pixels[y * edgeImg.width + x]) != 0) {
+        
         // ...determine here all the lines (r, phi) passing through
         // pixel (x,y), convert (r,phi) to coordinates in the
         // accumulator, and increment accordingly the accumulator.
         // Be careful: r may be negative, so you may want to center onto
         // the accumulator with something like: r += (rDim - 1) / 2
         for (int phiC = 0; phiC < phiDim; ++phiC) {
-          int r = (int)((x*cos(phiC*discretizationStepsPhi) + y*sin(phiC*discretizationStepsPhi))/discretizationStepsR);
+          int r = (int)(x*tabCos[phiC] + y*tabSin[phiC]);
           r += (rDim - 1) / 2;
           accumulator[(phiC+1)*(rDim + 2) + r] += 1;
         }
@@ -75,6 +93,40 @@ void hough(PImage edgeImg, int minVotes, int nLines) {
   for (int i = 0; i < accumulator.length; ++i) {            //(phiDim + 2) * (rDim + 2)
     if (accumulator[i] >= minVotes) {
       bestCandidates.add(i);
+    }
+  }
+
+  // size of the region we search for a local maximum
+  int neighbourhood = 10;
+  // only search around lines with more that this amount of votes
+  // (to be adapted to your image)
+  for (int accR = 0; accR < rDim; accR++) {
+    for (int accPhi = 0; accPhi < phiDim; accPhi++) {
+      // compute current index in the accumulator
+      int idx = (accPhi + 1) * (rDim + 2) + accR + 1;
+      if (accumulator[idx] > minVotes) {
+        boolean bestCandidate=true;
+        // iterate over the neighbourhood
+        for (int dPhi=-neighbourhood/2; dPhi < neighbourhood/2+1; dPhi++) {
+          // check we are not outside the image
+          if ( accPhi+dPhi < 0 || accPhi+dPhi >= phiDim) continue;
+          for (int dR=-neighbourhood/2; dR < neighbourhood/2 +1; dR++) {
+            // check we are not outside the image
+            if (accR+dR < 0 || accR+dR >= rDim) continue;
+            int neighbourIdx = (accPhi + dPhi + 1) * (rDim + 2) + accR + dR + 1;
+            if (accumulator[idx] < accumulator[neighbourIdx]) {
+              // the current idx is not a local maximum!
+              bestCandidate=false;
+              break;
+            }
+          }
+          if (!bestCandidate) break;
+        }
+        if (bestCandidate) {
+          // the current idx *is* a local maximum
+          bestCandidates.add(idx);
+        }
+      }
     }
   }
 
@@ -92,6 +144,9 @@ void hough(PImage edgeImg, int minVotes, int nLines) {
    return houghImg;
    */
 
+  // Array to return
+  ArrayList<PVector> bestLines = new ArrayList<PVector>();
+
   for (int i = 0; i < min(nLines, bestCandidates.size()); ++i) {
 
     int idx = bestCandidates.get(i);
@@ -101,6 +156,9 @@ void hough(PImage edgeImg, int minVotes, int nLines) {
     int accR = idx - (accPhi + 1) * (rDim + 2) - 1;
     float r = (accR - (rDim - 1) * 0.5f) * discretizationStepsR;
     float phi = accPhi * discretizationStepsPhi;
+
+    // Add line to bestLines
+    bestLines.add(new PVector(r, phi));
 
     //Cartesian equation of a line: y = ax + b
     //in polar, y = (-cos(phi)/sin(phi))x + (r/sin(phi))
@@ -137,7 +195,31 @@ void hough(PImage edgeImg, int minVotes, int nLines) {
         line(x2, y2, x3, y3);
     }
   }
+
+  return bestLines;
 }
+
+ArrayList<PVector> getIntersections(List<PVector> lines) {
+
+  ArrayList<PVector> intersections = new ArrayList<PVector>();
+  for (int i = 0; i < lines.size() - 1; i++) {
+    PVector line1 = lines.get(i);
+    for (int j = i + 1; j < lines.size(); j++) {
+      PVector line2 = lines.get(j);
+
+      // compute the intersection and add it to ’intersections’
+      float d = cos(line2.y)*sin(line1.y) - cos(line1.y)*sin(line2.y);
+      float x = (line2.x*sin(line1.y) - line1.x*sin(line2.y)) / d;
+      float y = (-line2.x*cos(line1.y) + line1.x*cos(line2.y)) / d;
+
+      // draw the intersection
+      fill(255, 128, 0);
+      ellipse(x, y, 10, 10);
+    }
+  }
+  return intersections;
+}
+
 
 PImage sobel(PImage img) {
   float[][] hKernel = 
