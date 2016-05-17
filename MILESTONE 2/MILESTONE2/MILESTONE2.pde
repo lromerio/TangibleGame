@@ -47,8 +47,13 @@ void draw() {
   
   imgHoughAccumulator = hough.calculateAccumulator();
   
-  image(imgSobel, 0, 0);
+  image(imgStart, 0, 0);
+  imgQuad = hough.plotHough(200,6);
+  
+  image(imgSobel, 1200, 0);
   image(imgHoughAccumulator, 800, 0);
+   
+  
 }
 
 List<int[]> filterQuads(List<int[]> quads) {
