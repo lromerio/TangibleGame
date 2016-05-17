@@ -20,16 +20,16 @@ List<int[]> finalQuads;
 PVector areaBounds;
 
 void settings() {
-  size(800, 600);
+  size(1200, 600);
 }
 
 void setup() {
 
   // Image to be printed
-  img = loadImage("board1.jpg");
+  imgStart = loadImage("board1.jpg");
   
   thresholds = new Thresholding();
-  hough = new Hough();
+  hough = new Hough(imgStart, 200, 6);
   algos = new EdgeAlgorithms();
 
   QGraph = new QuadGraph();
@@ -38,14 +38,17 @@ void setup() {
 
 void draw() {
   
-  imgSobel = thresholds.hueThresholding(img, 50, 140);
+  imgSobel = thresholds.hueThresholding(imgStart, 50, 140);
   imgSobel = thresholds.brightnessThresholding(imgSobel, 30, 220);
   imgSobel = thresholds.saturationThresholding(imgSobel, 47, 255);
-  imgSobel = thresholds.gaussianBlur(imgSobel);
-  imgSobel = thresholds.intensityThresholding(result, 30, 220);
+  imgSobel = algos.gaussianBlur(imgSobel);
+  imgSobel = thresholds.intensityThresholding(imgSobel, 30, 220);
   imgSobel = algos.sobel(imgSobel);
   
+  imgHoughAccumulator = hough.calculateAccumulator();
+  
   image(imgSobel, 0, 0);
+  image(imgHoughAccumulator, 800, 0);
 }
 
 List<int[]> filterQuads(List<int[]> quads) {
@@ -53,10 +56,10 @@ List<int[]> filterQuads(List<int[]> quads) {
   List<int[]> filtered = new ArrayList<int[]>();
   for (int[] quad : quads) {
 
-    PVector l1 = lines.get(quad[0]);
-    PVector l2 = lines.get(quad[1]);
-    PVector l3 = lines.get(quad[2]);
-    PVector l4 = lines.get(quad[3]);
+    PVector l1 = hough.bestLines.get(quad[0]);
+    PVector l2 = hough.bestLines.get(quad[1]);
+    PVector l3 = hough.bestLines.get(quad[2]);
+    PVector l4 = hough.bestLines.get(quad[3]);
 
     PVector c12 = intersection(l1, l2);
     PVector c23 = intersection(l2, l3);

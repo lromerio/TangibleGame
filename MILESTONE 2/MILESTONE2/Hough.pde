@@ -8,25 +8,47 @@ class Hough {
   ArrayList<PVector> bestLines = new ArrayList<PVector>();
 
   // dimensions of the accumulator
-  int phiDim = (int) (Math.PI / discretizationStepsPhi);
-  int rDim = (int) (((edgeImg.width + edgeImg.height) * 2 + 1) / discretizationStepsR);
+  int phiDim;
+  int rDim;
 
   int minVotes;
   int nLines;
 
-    // our accumulator (with a 1 pix margin around)
-    int[] accumulator = new int[(phiDim + 2) * (rDim + 2)];
+  // our accumulator (with a 1 pix margin around)
+  int[] accumulator;
 
-  float[] tabSin = new float[phiDim];
-  float[] tabCos = new float[phiDim];
+  float[] tabSin;
+  float[] tabCos;
+  PImage edgeImg;
 
-  void doHough(PImage edgeImg, int minVotes, int nLines) {
+  Hough(PImage edgeImg, int minVotes, int nLines) {
+    this.edgeImg = edgeImg;
+      // dimensions of the accumulator
+  phiDim = (int) (Math.PI / discretizationStepsPhi);
+  rDim = (int) (((edgeImg.width + edgeImg.height) * 2 + 1) / discretizationStepsR);
+
+  this.minVotes = minVotes;
+  this.nLines = nLines;
+
+  // our accumulator (with a 1 pix margin around)
+  accumulator = new int[(phiDim + 2) * (rDim + 2)];
+
+  tabSin = new float[phiDim];
+  tabCos = new float[phiDim];
+    
+  }
+
+
+
+
+
+
+  void plotHough(int minVotes, int nLines) {
 
     this.minVotes = minVotes;
     this.nLines = nLines;
     
-    precomputeSinCos();
-    fillAccumulator(PImage edgeImg);
+    
     localMaxima();
 
     //Sort bestCandidates
@@ -35,7 +57,12 @@ class Hough {
     plotLines();
   }
 
-  void displayAccumulator() {
+
+  PImage calculateAccumulator() {
+        
+    precomputeSinCos();
+    fillAccumulator(edgeImg);
+    
     PImage houghImg = createImage(rDim + 2, phiDim + 2, ALPHA);
     for (int i = 0; i < accumulator.length; i++) {
       houghImg.pixels[i] = color(min(255, accumulator[i]));
