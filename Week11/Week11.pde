@@ -1,14 +1,14 @@
-import processing.video.*;
+
 import java.util.Collections;    //for sorting
 import java.util.List;
 import java.util.Random;
 
-Capture cam;
 PImage img;
 ArrayList<Integer> bestCandidates;
 List<PVector> lines;
 QuadGraph QGraph;
 List<int[]> finalQuads;
+PVector areaBounds;
 
 void settings() {
   size(800, 600);
@@ -33,7 +33,7 @@ void setup() {
 
   noLoop();
 
-  img = loadImage("board4.jpg");
+  img = loadImage("board1.jpg");
 
   QGraph = new QuadGraph();
 }
@@ -55,17 +55,36 @@ void draw() {
   result = brightnessThresholding(result, 30, 220);
   result = saturationThresholding(result, 47, 255);
   result = convolute(result);
+  
   result = intensityThresholding(result, 30, 220);    //lasciare?
-  //result = sobel(result);
-  image(result, 0, 0);
+  // Calculate area threshold
+  areaBounds = areaThresholding(result);
+  result = sobel(result);
+  //image(result, 0, 0);
 
-  //lines = hough(result, 200, 6);
+  lines = hough(result, 200, 6);
 
-  //QGraph.build(lines, width, height);
+  QGraph.build(lines, width, height);
 
-  //finalQuads = filterQuads(QGraph.findCycles());
+  finalQuads = filterQuads(QGraph.findCycles());
 
-  //drawQGraph(finalQuads, lines);
+  drawQGraph(finalQuads, lines);
+}
+
+PVector areaThresholding(PImage img) {
+ 
+  int whitePixels = 0;
+  
+  for (int i = 0; i < img.width * img.height; i++) {
+    if (img.pixels[i] == color(255) ) {
+      ++whitePixels;
+    }
+  }
+  
+  float minArea = whitePixels - (img.width * img.height*10)/100.f;
+  float maxArea = whitePixels + (img.width * img.height*10)/100.f;
+  
+  return new PVector(maxArea, minArea);
 }
 
 List<int[]> filterQuads(List<int[]> quads) {
@@ -86,7 +105,7 @@ List<int[]> filterQuads(List<int[]> quads) {
     float A = width*height;
 
     if (  QGraph.isConvex(c12, c23, c34, c41)
-      && QGraph.validArea(c12, c23, c34, c41, A, A/8)
+      && QGraph.validArea(c12, c23, c34, c41, areaBounds.x, areaBounds.y)
       && QGraph.nonFlatQuad(c12, c23, c34, c41) ) {
 
       filtered.add(quad);
