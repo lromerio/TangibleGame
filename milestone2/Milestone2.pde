@@ -16,13 +16,13 @@ List<int[]> finalQuads;
 PVector areaBounds;
 
 void settings() {
-  size(2000, 600);
+  size(2200, 600);
 }
 
 void setup() {
 
   // Image to print
-  imgStart = loadImage("board1.jpg");
+  imgStart = loadImage("board4.jpg");
 
   QGraph = new QuadGraph();
   noLoop();
@@ -34,10 +34,10 @@ void draw() {
 
   // Thresholding pipeline
   imgSobel = hueThresholding(imgStart, 50, 140);
-  imgSobel = brightnessThresholding(imgSobel, 30, 220);
-  imgSobel = saturationThresholding(imgSobel, 47, 255);
+  imgSobel = brightnessThresholding(imgSobel, 30, 200);
+  imgSobel = saturationThresholding(imgSobel, 90, 255);
   imgSobel = gaussianBlur(imgSobel);
-  imgSobel = intensityThresholding(imgSobel, 30, 220);
+  imgSobel = intensityThresholding(imgSobel, 30, 200);
 
   // Calculate area bounds from pre-sobel image
   areaBounds = areaThresholding(imgSobel);
@@ -45,18 +45,17 @@ void draw() {
   // Calculate Sobel image
   imgSobel = sobel(imgSobel);
 
-
   // Do Hough algorithm and print accumulator
-  bestLines = hough(imgSobel, 200, 6);
+  bestLines = hough(imgSobel, 178, 6);
 
-  // Print images
-  image(imgHoughAccumulator, 800, 0);
-  image(imgSobel, 1400, 0);
-
-  // Quad detetction
+  // Quad detection
   QGraph.build(bestLines, width, height);
   finalQuads = filterQuads(QGraph.findCycles());
-  drawQGraph(finalQuads, bestLines);
+
+  // Print images
+  drawBestQuad(finalQuads.get(0), imgStart);
+  image(imgHoughAccumulator, 800, 0);
+  image(imgSobel, 1400, 0);
 }
 
 List<int[]> filterQuads(List<int[]> quads) {
@@ -77,14 +76,71 @@ List<int[]> filterQuads(List<int[]> quads) {
     float A = width*height;
 
     if (  QGraph.isConvex(c12, c23, c34, c41)
-      && QGraph.validArea(c12, c23, c34, c41, A, 0)
-      && QGraph.nonFlatQuad(c12, c23, c34, c41) ) {
+      &&  QGraph.validArea(c12, c23, c34, c41, A, 0)
+      &&  QGraph.nonFlatQuad(c12, c23, c34, c41) ) {
 
       filtered.add(quad);
     }
   }
 
   return filtered;
+}
+
+void drawBestQuad(int[] quad, PImage imgStart) {
+
+  for (int i = 0; i < 4; ++i) {
+
+    PVector l = bestLines.get(quad[i]); 
+
+    // Compute the intersection of this line with the 4 borders of the image
+    int x0 = 0;
+    int y0 = (int) (l.x / sin(l.y));
+    int x1 = (int) (l.x / cos(l.y));
+    int y1 = 0;
+    int x2 = imgStart.width;
+    int y2 = (int) (-cos(l.y) / sin(l.y) * x2 + l.x / sin(l.y));
+    int y3 = imgStart.width;
+    int x3 = (int) (-(y3 - l.x / sin(l.y)) * (sin(l.y) / cos(l.y)));
+
+    //Plot the lines
+    stroke(204, 102, 0);
+    if (y0 > 0) {
+      if (x1 > 0)
+        line(x0, y0, x1, y1);
+      else if (y2 > 0)
+        line(x0, y0, x2, y2);
+      else
+        line(x0, y0, x3, y3);
+    } else {
+      if (x1>0) {
+        if (y2>0)
+          line(x1, y1, x2, y2);
+        else
+          line(x1, y1, x3, y3);
+      } else
+        line(x2, y2, x3, y3);
+    }
+  }
+
+  PVector l1 = bestLines.get(quad[0]);
+  PVector l2 = bestLines.get(quad[1]);
+  PVector l3 = bestLines.get(quad[2]);
+  PVector l4 = bestLines.get(quad[3]);
+
+  // (intersection() is a simplified version of the
+  // intersections() method you wrote last week, that simply
+  // return the coordinates of the intersection between 2 lines)
+  PVector c12 = intersection(l1, l2);
+  PVector c23 = intersection(l2, l3);
+  PVector c34 = intersection(l3, l4);
+  PVector c41 = intersection(l4, l1);
+
+  // Draw quad corners
+  fill(255, 128, 0);
+  ellipse(c12.x, c12.y, 10, 10);
+  ellipse(c23.x, c23.y, 10, 10);
+  ellipse(c34.x, c34.y, 10, 10);
+  ellipse(c41.x, c41.y, 10, 10);
 }
 
 void drawQGraph(List<int[]> quads, List<PVector> lines) {
@@ -248,35 +304,6 @@ ArrayList<PVector> hough(PImage edgeImg, int minVotes, int nLines) {
 
     // Add line to bestLines
     bestLines.add(new PVector(r, phi));
-
-    // Compute the intersection of this line with the 4 borders of the image
-    int x0 = 0;
-    int y0 = (int) (r / sin(phi));
-    int x1 = (int) (r / cos(phi));
-    int y1 = 0;
-    int x2 = edgeImg.width;
-    int y2 = (int) (-cos(phi) / sin(phi) * x2 + r / sin(phi));
-    int y3 = edgeImg.width;
-    int x3 = (int) (-(y3 - r / sin(phi)) * (sin(phi) / cos(phi)));
-
-    //Plot the lines
-    stroke(204, 102, 0);
-    if (y0 > 0) {
-      if (x1 > 0)
-        line(x0, y0, x1, y1);
-      else if (y2 > 0)
-        line(x0, y0, x2, y2);
-      else
-        line(x0, y0, x3, y3);
-    } else {
-      if (x1>0) {
-        if (y2>0)
-          line(x1, y1, x2, y2);
-        else
-          line(x1, y1, x3, y3);
-      } else
-        line(x2, y2, x3, y3);
-    }
   }
 
   return bestLines;
