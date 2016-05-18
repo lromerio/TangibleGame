@@ -33,7 +33,7 @@ void draw() {
   image(imgStart, 0, 0);
 
   // Thresholding pipeline
-  imgSobel = hueThresholding(imgSobel, 50, 140);
+  imgSobel = hueThresholding(imgStart, 50, 140);
   imgSobel = brightnessThresholding(imgSobel, 30, 220);
   imgSobel = saturationThresholding(imgSobel, 47, 255);
   imgSobel = gaussianBlur(imgSobel);
@@ -44,16 +44,19 @@ void draw() {
 
   // Calculate Sobel image
   imgSobel = sobel(imgSobel);
-  image(imgSobel, 1200, 0);
+
 
   // Do Hough algorithm and print accumulator
   bestLines = hough(imgSobel, 200, 6);
 
-  //QGraph.build(bestLines, width, height);
+  // Print images
+  image(imgHoughAccumulator, 800, 0);
+  image(imgSobel, 1400, 0);
 
-  //finalQuads = filterQuads(QGraph.findCycles());
-
-  //drawQGraph(finalQuads, bestLines);
+  // Quad detetction
+  QGraph.build(bestLines, width, height);
+  finalQuads = filterQuads(QGraph.findCycles());
+  drawQGraph(finalQuads, bestLines);
 }
 
 List<int[]> filterQuads(List<int[]> quads) {
@@ -74,7 +77,7 @@ List<int[]> filterQuads(List<int[]> quads) {
     float A = width*height;
 
     if (  QGraph.isConvex(c12, c23, c34, c41)
-      && QGraph.validArea(c12, c23, c34, c41, areaBounds.x, areaBounds.y)
+      && QGraph.validArea(c12, c23, c34, c41, A, 0)
       && QGraph.nonFlatQuad(c12, c23, c34, c41) ) {
 
       filtered.add(quad);
@@ -99,6 +102,13 @@ void drawQGraph(List<int[]> quads, List<PVector> lines) {
     PVector c34 = intersection(l3, l4);
     PVector c41 = intersection(l4, l1);
 
+    // Draw quad corners
+    fill(255, 128, 0);
+    ellipse(c12.x, c12.y, 10, 10);
+    ellipse(c23.x, c23.y, 10, 10);
+    ellipse(c34.x, c34.y, 10, 10);
+    ellipse(c41.x, c41.y, 10, 10);
+
     // Choose a random, semi-transparent colour
     Random random = new Random();
     fill(color(min(255, random.nextInt(300)), 
@@ -108,6 +118,37 @@ void drawQGraph(List<int[]> quads, List<PVector> lines) {
   }
 }
 
+ArrayList<PVector> getIntersections(List<PVector> lines) {
+
+  ArrayList<PVector> intersections = new ArrayList<PVector>();
+  for (int i = 0; i < lines.size() - 1; i++) {
+    PVector line1 = lines.get(i);
+    for (int j = i + 1; j < lines.size(); j++) {
+      PVector line2 = lines.get(j);
+
+      // compute the intersection and add it to ’intersections’
+      float d = cos(line2.y)*sin(line1.y) - cos(line1.y)*sin(line2.y);
+      float x = (line2.x*sin(line1.y) - line1.x*sin(line2.y)) / d;
+      float y = (-line2.x*cos(line1.y) + line1.x*cos(line2.y)) / d;
+
+      // draw the intersection
+      fill(255, 128, 0);
+      ellipse(x, y, 10, 10);
+    }
+  }
+  return intersections;
+}
+
+PVector intersection(PVector line1, PVector line2) {
+
+  // compute the intersection and add it to ’intersections’
+  float d = cos(line2.y)*sin(line1.y) - cos(line1.y)*sin(line2.y);
+  float x = (line2.x*sin(line1.y) - line1.x*sin(line2.y)) / d;
+  float y = (-line2.x*cos(line1.y) + line1.x*cos(line2.y)) / d;
+
+  return new PVector(x, y);
+}
+
 // Takes the accumulator and its dimensions and returns the image
 PImage displayHoughAcc(int[] accumulator, int rDim, int phiDim) {
 
@@ -115,8 +156,8 @@ PImage displayHoughAcc(int[] accumulator, int rDim, int phiDim) {
   for (int i = 0; i < accumulator.length; i++) {
     houghImg.pixels[i] = color(min(255, accumulator[i]));
   }
-  
-  houghImg.resize(400, 400);
+
+  houghImg.resize(600, 600);
   houghImg.updatePixels();
   return houghImg;
 }
@@ -185,9 +226,9 @@ ArrayList<PVector> hough(PImage edgeImg, int minVotes, int nLines) {
       }
     }
   }
-  
-  // Display accumulator
-  image(displayHoughAcc(accumulator, rDim, phiDim), 800, 0);
+
+  // Save accumulator image
+  imgHoughAccumulator = displayHoughAcc(accumulator, rDim, phiDim);
 
   // Sort bestCandidates
   Collections.sort(bestCandidates, new HoughComparator(accumulator));
@@ -239,37 +280,6 @@ ArrayList<PVector> hough(PImage edgeImg, int minVotes, int nLines) {
   }
 
   return bestLines;
-}
-
-ArrayList<PVector> getIntersections(List<PVector> lines) {
-
-  ArrayList<PVector> intersections = new ArrayList<PVector>();
-  for (int i = 0; i < lines.size() - 1; i++) {
-    PVector line1 = lines.get(i);
-    for (int j = i + 1; j < lines.size(); j++) {
-      PVector line2 = lines.get(j);
-
-      // compute the intersection and add it to ’intersections’
-      float d = cos(line2.y)*sin(line1.y) - cos(line1.y)*sin(line2.y);
-      float x = (line2.x*sin(line1.y) - line1.x*sin(line2.y)) / d;
-      float y = (-line2.x*cos(line1.y) + line1.x*cos(line2.y)) / d;
-
-      // draw the intersection
-      fill(255, 128, 0);
-      ellipse(x, y, 10, 10);
-    }
-  }
-  return intersections;
-}
-
-PVector intersection(PVector line1, PVector line2) {
-
-  // compute the intersection and add it to ’intersections’
-  float d = cos(line2.y)*sin(line1.y) - cos(line1.y)*sin(line2.y);
-  float x = (line2.x*sin(line1.y) - line1.x*sin(line2.y)) / d;
-  float y = (-line2.x*cos(line1.y) + line1.x*cos(line2.y)) / d;
-
-  return new PVector(x, y);
 }
 
 // Area thresholding
