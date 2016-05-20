@@ -1,16 +1,17 @@
-
+// Imports
 import java.util.Collections;    //for sorting
 import java.util.List;
 import java.util.Random;
 
+// Images
 PImage imgStart;
 PImage imgSobel;
 PImage imgHoughAccumulator;
 PImage imgQuad;
 
+// Detection structures
 List<PVector> bestLines;
 ArrayList<Integer> bestCandidates;
-
 QuadGraph QGraph;
 List<int[]> finalQuads;
 PVector areaBounds;
@@ -38,10 +39,7 @@ void draw() {
   imgSobel = saturationThresholding(imgSobel, 90, 255);
   imgSobel = gaussianBlur(imgSobel);
   imgSobel = intensityThresholding(imgSobel, 30, 200);
-
-  // Calculate area bounds from pre-sobel image
-  areaBounds = areaThresholding(imgSobel);
-
+  
   // Calculate Sobel image
   imgSobel = sobel(imgSobel);
 
@@ -58,6 +56,7 @@ void draw() {
   image(imgSobel, 1400, 0);
 }
 
+// Implements convexity, area and non-flat filters
 List<int[]> filterQuads(List<int[]> quads) {
 
   List<int[]> filtered = new ArrayList<int[]>();
@@ -86,6 +85,7 @@ List<int[]> filterQuads(List<int[]> quads) {
   return filtered;
 }
 
+// Draws corners and edge lines of the best quad detected
 void drawBestQuad(int[] quad, PImage imgStart) {
 
   for (int i = 0; i < 4; ++i) {
@@ -143,6 +143,7 @@ void drawBestQuad(int[] quad, PImage imgStart) {
   ellipse(c41.x, c41.y, 10, 10);
 }
 
+// Draw a collection of quads by displaying their corners
 void drawQGraph(List<int[]> quads, List<PVector> lines) {
   for (int[] quad : quads) {
     PVector l1 = bestLines.get(quad[0]);
@@ -195,6 +196,7 @@ ArrayList<PVector> getIntersections(List<PVector> lines) {
   return intersections;
 }
 
+// Computes the intersection between two polar lines
 PVector intersection(PVector line1, PVector line2) {
 
   // compute the intersection and add it to ’intersections’
@@ -218,6 +220,7 @@ PImage displayHoughAcc(int[] accumulator, int rDim, int phiDim) {
   return houghImg;
 }
 
+// Implements the Hough algorithm for edge detection
 ArrayList<PVector> hough(PImage edgeImg, int minVotes, int nLines) {
 
   bestCandidates = new ArrayList<Integer>();
@@ -383,6 +386,7 @@ PImage sobel(PImage img) {
   return result;
 }
 
+// Implements the Gaussian Blur on an image
 PImage gaussianBlur(PImage img) {
 
   // Kernel initialisation
