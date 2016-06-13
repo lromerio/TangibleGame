@@ -48,7 +48,6 @@ class ScoreInterface {
 
     drawBarChart();
     image(barChart, - width/2+ 15 + topView.width + scoreboard.width, height/2 - dataVisualisation.height + 5);
-    popMatrix();
 
     scrollbar.update();
     scrollbar.display();

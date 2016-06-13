@@ -6,6 +6,7 @@ class PlayMode extends Mode {
   //tappa 6
   PlayMode(){
      isPaused = false;
+     isPlayMode = true;
   } 
   /*
    * Performs the mouse dragged action of the plane.
@@ -31,10 +32,16 @@ class PlayMode extends Mode {
    * Updates and displays the plane and the ball.
    */
   void display() {
+    environment.display();
+    
+    pushMatrix();
+    translate(width/2, height/2, 0);
     plane.display();
     ball.update();
     ball.display();
-    
+    drawCylinders();
+    scores.drawScores();
+    popMatrix();    
   }
 
   /*

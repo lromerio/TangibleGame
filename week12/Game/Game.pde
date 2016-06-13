@@ -1,3 +1,4 @@
+
 //_______________________________________________________________
 //Imports
 
@@ -17,6 +18,7 @@ Plane plane;
 Cylinder cylinder;
 ArrayList<PVector> cylinders;
 Mode currentMode;
+Mode prevMode;
 ScoreInterface scores;
 
 //BONUS
@@ -35,35 +37,26 @@ void settings() {
 
 void setup() {
   noStroke();
-  currentMode = new PlayMode();
-  
-  cylinders = new ArrayList<PVector>();
-  ball = new Ball(20);
-  plane = new Plane(450, 20);
-  cylinder = new Cylinder(30, 30, 40);
-  
-  scores = new ScoreInterface();
+  currentMode = new MenuMode();
+
+  //cylinders = new ArrayList<PVector>();
+  //ball = new Ball(20);
+  //plane = new Plane(450, 20);
+  //cylinder = new Cylinder(30, 30, 40);
+
+  //scores = new ScoreInterface();
 
   //BONUS
   //minim = new Minim(this);
-  environment = new Environment();
+  //environment = new Environment();
 }
 
 void draw() {
-  //BONUS
-  environment.starWarsThemed();
-
   directionalLight(229, 255, 204, 0, 1, -1);
   ambientLight(102, 102, 102);
-  pushMatrix();
-  translate(width/2, height/2, 0);
-
   
   currentMode.display();
-  currentMode.drawCylinders();  
-  
-  scores.drawScores();
-}  
+} 
 
 /*
  * Performs the mouse dragged action of the current mode. 
@@ -92,7 +85,9 @@ void mouseWheel(MouseEvent event) {
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == SHIFT) {
-      currentMode = new EditMode();
+      if (currentMode.isPlayMode) {
+        currentMode = new EditMode();
+      }
     }
   }
 }
@@ -101,9 +96,13 @@ void keyPressed() {
  * Switches the current mode to play mode when 'SHIFT' is released.
  */
 void keyReleased() {
-  if (key == CODED) {
-    if (keyCode == SHIFT) {
-      currentMode = new PlayMode();
+  if (currentMode.isPlayMode) {
+    if (key == CODED) {
+      if (keyCode == SHIFT) {
+        currentMode = new PlayMode();
+      }
+    } else if (key == ENTER) {
+      currentMode = new EnterMode();
     }
   }
 }
