@@ -16,6 +16,9 @@ QuadGraph QGraph;
 List<int[]> finalQuads;
 PVector areaBounds;
 
+// Week 12
+TwoDThreeD tdtd;
+
 void settings() {
   size(2200, 600);
 }
@@ -23,10 +26,12 @@ void settings() {
 void setup() {
 
   // Image to print
-  imgStart = loadImage("board1.jpg");
+  imgStart = loadImage("board4.jpg");
 
   QGraph = new QuadGraph();
   noLoop();
+
+  tdtd = new TwoDThreeD(width, height);
 }
 
 void draw() {
@@ -54,7 +59,41 @@ void draw() {
   drawQGraph(finalQuads);
   image(imgHoughAccumulator, 800, 0);
   image(imgSobel, 1400, 0);
+
+  List<PVector> sortedC = QGraph.sortCorners(quadCoord(finalQuads));
+
+  PVector rot = tdtd.get3DRotations(sortedC);
+
+  println("Rot x: " + degrees(rot.x) );
+  println("Rot y: " + degrees(rot.y) );
+  println("Rot z: " + degrees(rot.z) );
 }
+
+//____________________________________________________________________________________
+//     WEEK 12
+//____________________________________________________________________________________
+
+List<PVector> quadCoord(List<int[]> quad) {
+
+  PVector l1 = bestLines.get(quad.get(0)[0]);
+  PVector l2 = bestLines.get(quad.get(0)[1]);
+  PVector l3 = bestLines.get(quad.get(0)[2]);
+  PVector l4 = bestLines.get(quad.get(0)[3]);
+
+  List<PVector> corners = new ArrayList<PVector>();
+
+  corners.add(intersection(l1, l2));
+  corners.add(intersection(l2, l3));
+  corners.add(intersection(l3, l4));
+  corners.add(intersection(l4, l1));
+
+  return corners;
+}
+
+
+//____________________________________________________________________________________
+//    MILESTONE II
+//____________________________________________________________________________________
 
 // Implements convexity, area and non-flat filters
 List<int[]> filterQuads(List<int[]> quads) {
