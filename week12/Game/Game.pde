@@ -21,6 +21,9 @@ Mode currentMode;
 Mode prevMode;
 ScoreInterface scores;
 
+//EdgeDetection
+ImageProcessing ip;
+
 //BONUS
 
 //minim: object for loading playing sounds.
@@ -39,6 +42,12 @@ void setup() {
   noStroke();
   currentMode = new MenuMode();
 
+  //EdgeDetection
+  ip = new ImageProcessing();
+  String []args = {"Image processing window"};
+  PApplet.runSketch(args, ip);
+
+
   //cylinders = new ArrayList<PVector>();
   //ball = new Ball(20);
   //plane = new Plane(450, 20);
@@ -54,7 +63,7 @@ void setup() {
 void draw() {
   directionalLight(229, 255, 204, 0, 1, -1);
   ambientLight(102, 102, 102);
-  
+
   currentMode.display();
 } 
 
