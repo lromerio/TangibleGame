@@ -23,6 +23,7 @@ ScoreInterface scores;
 
 //EdgeDetection
 ImageProcessing ip;
+Movie cam;
 
 //BONUS
 
@@ -42,6 +43,9 @@ void setup() {
   noStroke();
   currentMode = new MenuMode();
 
+
+  cam = new Movie(this, "testvideo.mp4"); //Put the video in the same directory
+  
   //EdgeDetection
   ip = new ImageProcessing();
   String []args = {"Image processing window"};
@@ -57,7 +61,7 @@ void setup() {
 
   //BONUS
   //minim = new Minim(this);
-  //environment = new Environment();
+  //environment = new Environment()
 }
 
 void draw() {

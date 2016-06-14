@@ -8,7 +8,7 @@ class ImageProcessing extends PApplet {
 
   // Camera
   //Capture cam;
-  Movie cam;
+  //Movie cam;
 
   // Images
   PImage imgStart;
@@ -27,13 +27,13 @@ class ImageProcessing extends PApplet {
   TwoDThreeD tdtd;
 
   void settings() {
-    size(2200, 600);
+    size(600, 600);
   }
 
   void setup() {
 
     // Hide window
-    surface.setVisible(false);
+    //surface.setVisible(false);
 
     QGraph = new QuadGraph();
 
@@ -42,8 +42,9 @@ class ImageProcessing extends PApplet {
     /*In the setup()*/
     //cam = new Capture(this, cameras[63]);
     //cam.start();
-    cam = new Movie(this,  "testvideo.mp4"); //Put the video in the same directory
-    cam.loop();
+
+    //cam = new Movie(this, "testvideo.mp4"); //Put the video in the same directory
+    //////cam.loop();
 
 
     /*
@@ -72,8 +73,9 @@ class ImageProcessing extends PApplet {
      
      imgStart = cam.get();
      */
-
     imgStart = cam;
+    imgStart.loadPixels();
+    image(imgStart, 0, 0);
 
     // Thresholding pipeline
     imgSobel = hueThresholding(imgStart, 50, 140);
