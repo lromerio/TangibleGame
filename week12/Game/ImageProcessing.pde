@@ -7,7 +7,8 @@ import processing.video.*;
 class ImageProcessing extends PApplet {
 
   // Camera
-  Capture cam;
+  //Capture cam;
+  Movie cam;
 
   // Images
   PImage imgStart;
@@ -38,28 +39,41 @@ class ImageProcessing extends PApplet {
 
     tdtd = new TwoDThreeD(width, height);
 
+    /*In the setup()*/
+    //cam = new Capture(this, cameras[63]);
+    //cam.start();
+    cam = new Movie(this,  "testvideo.mp4"); //Put the video in the same directory
+    cam.loop();
+
+
+    /*
     // Camera setup
-    String[] cameras = Capture.list();
-    if (cameras.length == 0) {
-      println("There are no cameras available for capture.");
-      exit();
-    } else {
-      println("Available cameras:");
-      for (int i = 0; i < cameras.length; i++) {
-        println(cameras[i] +"   "+ i);
-      }
-      cam = new Capture(this, cameras[9]);
-      cam.start();
-    }
+     String[] cameras = Capture.list();
+     if (cameras.length == 0) {
+     println("There are no cameras available for capture.");
+     exit();
+     } else {
+     println("Available cameras:");
+     for (int i = 0; i < cameras.length; i++) {
+     println(cameras[i] +"   "+ i);
+     }
+     cam = new Capture(this, cameras[9]);
+     cam.start();
+     }
+     */
   }
 
   void draw() {
-
+    /*
     // Get camera image
-    if (cam.available() == true) {
-      cam.read();
-    }
-    imgStart = cam.get();
+     if (cam.available() == true) {
+     cam.read();
+     }
+     
+     imgStart = cam.get();
+     */
+
+    imgStart = cam;
 
     // Thresholding pipeline
     imgSobel = hueThresholding(imgStart, 50, 140);
