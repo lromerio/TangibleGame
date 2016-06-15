@@ -24,6 +24,7 @@ ScoreInterface scores;
 //EdgeDetection
 ImageProcessing ip;
 Movie cam;
+PImage frameMovie;
 
 //BONUS
 
@@ -45,11 +46,13 @@ void setup() {
 
 
   cam = new Movie(this, "testvideo.mp4"); //Put the video in the same directory
+  cam.loop();
   
   //EdgeDetection
   ip = new ImageProcessing();
   String []args = {"Image processing window"};
   PApplet.runSketch(args, ip);
+  
 
 
   //cylinders = new ArrayList<PVector>();
@@ -67,9 +70,15 @@ void setup() {
 void draw() {
   directionalLight(229, 255, 204, 0, 1, -1);
   ambientLight(102, 102, 102);
-
+  
+  ip.imgStart = cam;
+ 
   currentMode.display();
 } 
+
+void movieEvent(Movie m) {
+ m.read(); 
+}
 
 /*
  * Performs the mouse dragged action of the current mode. 
