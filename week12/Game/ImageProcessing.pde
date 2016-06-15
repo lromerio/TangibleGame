@@ -38,7 +38,7 @@ class ImageProcessing extends PApplet {
     QGraph = new QuadGraph();
 
     tdtd = new TwoDThreeD(width, height);
-
+    
     /*In the setup()*/
     //cam = new Capture(this, cameras[63]);
     //cam.start();
@@ -73,8 +73,6 @@ class ImageProcessing extends PApplet {
      
      imgStart = cam.get();
      */
-    imgStart = cam;
-    imgStart.loadPixels();
     image(imgStart, 0, 0);
 
     // Thresholding pipeline
@@ -109,7 +107,8 @@ class ImageProcessing extends PApplet {
       plane.angleZ = rot.z;
     }
   }
-
+  
+ 
   //____________________________________________________________________________________
   //     WEEK 12
   //____________________________________________________________________________________
