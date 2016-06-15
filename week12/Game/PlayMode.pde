@@ -33,6 +33,7 @@ class PlayMode extends Mode {
    */
   void display() {
     environment.display();
+    ip.update(cam);
     
     pushMatrix();
     translate(width/2, height/2, 0);
@@ -41,7 +42,22 @@ class PlayMode extends Mode {
     ball.display();
     drawCylinders();
     scores.drawScores();
-    popMatrix();    
+    popMatrix(); 
+    
+    
+    
+    /*Display Cam or Vid*/
+    PImage toPrintSobel = ip.imgSobel;
+    toPrintSobel.resize(200, 200);
+    PImage toPrintCam = cam.get();
+    toPrintCam.resize(200, 200);
+    
+    fill(0);
+    rect(width-toPrintCam.width - 10, 0, toPrintCam.width + 10, toPrintCam.height + toPrintSobel.height + 10);
+
+    image(toPrintCam, width-toPrintCam.width - 5, 5);
+    image(toPrintSobel, width-toPrintSobel.width - 5, toPrintCam.height + 5);
+    
   }
 
   /*

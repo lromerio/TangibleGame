@@ -157,5 +157,6 @@ class MenuMode extends Mode {
     plane = new Plane(450, 20);
     cylinder = new Cylinder(30, 30, 40);
     currentMode = new PlayMode();
+    cam.loop();
   }
 }

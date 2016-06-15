@@ -46,12 +46,12 @@ void setup() {
 
 
   cam = new Movie(this, "testvideo.mp4"); //Put the video in the same directory
-  cam.loop();
+  //cam.loop();
   
   //EdgeDetection
   ip = new ImageProcessing();
-  String []args = {"Image processing window"};
-  PApplet.runSketch(args, ip);
+  //String []args = {"Image processing window"};
+  //PApplet.runSketch(args, ip);
   
 
 
@@ -70,9 +70,9 @@ void setup() {
 void draw() {
   directionalLight(229, 255, 204, 0, 1, -1);
   ambientLight(102, 102, 102);
-  
-  ip.imgStart = cam;
- 
+    
+  //ip.update(cam);
+
   currentMode.display();
 } 
 

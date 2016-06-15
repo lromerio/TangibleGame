@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 import processing.video.*;
 
-class ImageProcessing extends PApplet {
+class ImageProcessing {
 
   // Camera
   //Capture cam;
@@ -26,11 +26,8 @@ class ImageProcessing extends PApplet {
   // Week 12
   TwoDThreeD tdtd;
 
-  void settings() {
-    size(600, 600);
-  }
 
-  void setup() {
+   ImageProcessing() {
 
     // Hide window
     //surface.setVisible(false);
@@ -64,7 +61,7 @@ class ImageProcessing extends PApplet {
      */
   }
 
-  void draw() {
+  void update(PImage cam) {
     /*
     // Get camera image
      if (cam.available() == true) {
@@ -73,10 +70,12 @@ class ImageProcessing extends PApplet {
      
      imgStart = cam.get();
      */
-    image(imgStart, 0, 0);
+     
+     
+
 
     // Thresholding pipeline
-    imgSobel = hueThresholding(imgStart, 50, 140);
+    imgSobel = hueThresholding(cam.get(), 50, 140);
     imgSobel = brightnessThresholding(imgSobel, 30, 200);
     imgSobel = saturationThresholding(imgSobel, 90, 255);
     imgSobel = gaussianBlur(imgSobel);
@@ -84,7 +83,8 @@ class ImageProcessing extends PApplet {
 
     // Calculate Sobel image
     imgSobel = sobel(imgSobel);
-
+    
+    
     // Do Hough algorithm and print accumulator
     bestLines = hough(imgSobel, 178, 6);
 
@@ -105,7 +105,12 @@ class ImageProcessing extends PApplet {
       // Update plane angles
       plane.angleX = rot.x;
       plane.angleZ = rot.z;
+      
+      
+      
     }
+    
+    
   }
   
  
