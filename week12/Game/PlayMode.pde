@@ -7,6 +7,8 @@ class PlayMode extends Mode {
   PlayMode(){
      isPaused = false;
      isPlayMode = true;
+     
+     textFont(environment.gameFont);
   } 
   /*
    * Performs the mouse dragged action of the plane.

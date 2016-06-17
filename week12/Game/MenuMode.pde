@@ -11,7 +11,6 @@ class MenuMode extends Mode {
   PImage PreviewSW;
   PImage PreviewC;
   PImage PreviewPK;
-  PImage backgroundImg;
 
   int env;
 
@@ -24,14 +23,14 @@ class MenuMode extends Mode {
     PreviewC = loadImage("PreviewC.JPG");
     PreviewSW = loadImage("PreviewSW.JPG");
     PreviewPK = loadImage("PreviewPK.JPG");
-    backgroundImg = loadImage("MenuBack1.jpg");
-    backgroundImg.resize(displayWidth, displayHeight);
+
+    textFont(mainFont);
 
     env = -1;
   }
 
   void display() {
-    background(backgroundImg);
+    background(mainBG);
 
     fill(255);
     textAlign(CENTER);
@@ -73,7 +72,9 @@ class MenuMode extends Mode {
     text("Classic", 240, height/4 + 127);
     text("Star Wars", 240, height/4 + 227);    //inserire font rispettivi
     text("Pokémon", 240, height/4 + 327);
-    text("Play", width-200, height-73);
+    if (env != -1) {
+      text("Play", width-200, height-73);
+    }
 
     textSize(30);
     text("?", width-40, 50);

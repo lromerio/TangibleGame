@@ -4,14 +4,17 @@ class HelpMode extends Mode {
   boolean backOver;
   Mode prevMode;
 
+  PImage backgroundImg;
+
   HelpMode(Mode currentMode) {
     isPaused = true;
     isPlayMode = false;
     prevMode = currentMode;
+    textFont(mainFont);
   }
 
   void display() {
-    background(0);
+    background(mainBG);
 
     fill(255);
     textAlign(CENTER);

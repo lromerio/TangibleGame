@@ -5,14 +5,18 @@ class EnterMode extends Mode {
   boolean newOver;
   boolean helpOver;
 
+  PImage backgroundImg;
+
   EnterMode() {
     isPaused = true;
     isPlayMode = false;
+
+    textFont(mainFont);
   }
 
 
   void display() {
-    background(0);
+    background(mainBG);
 
     fill(255);
     textAlign(CENTER);
@@ -40,7 +44,7 @@ class EnterMode extends Mode {
     textSize(20);
     text("Resume", 240, height/4 + 127);
     text("New Game", 240, height/4 + 227);    //inserire font rispettivi
-    
+
     textSize(30);
     text("?", width-40, 50);
 

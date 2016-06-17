@@ -33,6 +33,8 @@ PImage frameMovie;
 
 //environment: for personalised background and theme.
 Environment environment;
+PImage mainBG;
+PFont mainFont;
 //_______________________________________________________________
 //Functions
 
@@ -42,17 +44,25 @@ void settings() {
 
 void setup() {
   noStroke();
+
+  // Standard Background
+  mainBG = loadImage("MainBG.jpg");
+  mainBG.resize(displayWidth, displayHeight);
+
+  // Font
+  mainFont = createFont("spaceage.ttf", 16, true);
+
   currentMode = new MenuMode();
 
 
   cam = new Movie(this, "testvideo.mp4"); //Put the video in the same directory
   //cam.loop();
-  
+
   //EdgeDetection
   ip = new ImageProcessing();
   //String []args = {"Image processing window"};
   //PApplet.runSketch(args, ip);
-  
+
 
 
   //cylinders = new ArrayList<PVector>();
@@ -70,14 +80,14 @@ void setup() {
 void draw() {
   directionalLight(229, 255, 204, 0, 1, -1);
   ambientLight(102, 102, 102);
-    
+
   //ip.update(cam);
 
   currentMode.display();
 } 
 
 void movieEvent(Movie m) {
- m.read(); 
+  m.read();
 }
 
 /*

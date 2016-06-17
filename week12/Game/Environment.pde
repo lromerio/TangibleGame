@@ -13,8 +13,9 @@ class Environment {
   PImage backgroundImg;
   PImage plateImg;
   PImage sideImg;
+ 
 
-  PFont f;
+  PFont gameFont;
   //int env;
 
   final float g;
@@ -48,13 +49,12 @@ class Environment {
   }
 
   void classicThemed() {
-    backgroundImg = loadImage("classicBg.jpg");
-    backgroundImg.resize(displayWidth, displayHeight);
+    backgroundImg = mainBG;
 
     plateImg = loadImage("PlateTextureClassic.jpg");
     sideImg = loadImage("PlateTextureClassic.jpg");
 
-    //TODO stabilire font classic-->da rimettere anche prima di tornare al menu principale ("NewGame")
+    gameFont = mainFont;
   }
 
   void starWarsThemed() {
@@ -73,18 +73,17 @@ class Environment {
 
     //BONUS
     //Star Wars themed font to display on the screen (source: http://www.fontspace.com/category/star%20wars)
-    f = createFont("Starjedi.ttf", 16, true);
-    textFont(f);
+    gameFont = createFont("Starjedi.ttf", 16, true);
   }
 
   void pokemonThemed() {
     //BONUS
     //Star Wars themed background (source: http://imgur.com/gallery/gXpIT), resized to match the display window.
-    backgroundImg = loadImage("pok2.png");
+    backgroundImg = loadImage("pok1.jpg");
     backgroundImg.resize(displayWidth, displayHeight);
 
-    plateImg = loadImage("PlateTexturePokemon.jpg");
-    sideImg = loadImage("PlateTexturePokemon.jpg");      
+    plateImg = loadImage("PlateTexturePokemon2.jpg");
+    sideImg = loadImage("PlateTexturePokemon2.jpg");
 
     //BONUS
     //Plays the Star Wars theme in backgound when the Environment is created.
@@ -93,8 +92,7 @@ class Environment {
 
     //BONUS
     //Star Wars themed font to display on the screen (source: http://www.fontspace.com/category/star%20wars)
-    f = createFont("PokemonSolid.ttf", 16, true);
-    textFont(f);
+    gameFont = createFont("PokemonSolid.ttf", 16, true);
   }
 
   /**
