@@ -7,6 +7,8 @@ class MenuMode extends Mode {
   boolean pkOver;
   boolean playOver;
   boolean helpOver;
+  boolean playVidOver;
+
 
   PImage PreviewSW;
   PImage PreviewC;
@@ -34,7 +36,7 @@ class MenuMode extends Mode {
 
     fill(255);
     textAlign(CENTER);
-    textSize(80);
+    textSize(50);
     text("Visual Programming Project", width/2, 120);
 
     textSize(30);
@@ -59,6 +61,9 @@ class MenuMode extends Mode {
       if (playOver) fill(155); 
       else fill(255);
       rect(width-300, height-100, 200, 40);
+      if (playVidOver) fill(155); 
+      else fill(255);
+      rect(width-650, height-100, 300, 40);
     }
 
     //Help
@@ -74,6 +79,7 @@ class MenuMode extends Mode {
     text("Pokémon", 240, height/4 + 327);
     if (env != -1) {
       text("Play", width-200, height-73);
+      text("Play with Video", width-500, height-73);
     }
 
     textSize(30);
@@ -99,6 +105,10 @@ class MenuMode extends Mode {
     } else if (pkOver) {
       env = 2;
     } else if (playOver && env != -1) {
+      camOn = false;
+      startGame();
+    } else if (playVidOver && env != -1) {
+      camOn = true;
       startGame();
     } else if (helpOver) {
       currentMode = new HelpMode(currentMode);
@@ -115,6 +125,8 @@ class MenuMode extends Mode {
     pkOver = false;
     playOver = false;
     helpOver = false;
+    playVidOver = false;
+
 
     if (x > 140 && x < 340) {
       if (y > (height/4 + 100) && y < (height/4 + 140)) {
@@ -128,6 +140,8 @@ class MenuMode extends Mode {
       playOver = true;
     } else if ( x > width-60 && x < width-20 && y > 20 && y < 60) {
       helpOver = true;
+    } else if ( x > width-650 && x < width-350 && y > (height-100) && y < (height-60)) {
+      playVidOver = true;
     }
   }
 
@@ -158,6 +172,8 @@ class MenuMode extends Mode {
     plane = new Plane(450, 20);
     cylinder = new Cylinder(30, 30, 40);
     currentMode = new PlayMode();
-    cam.loop();
+    if (camOn) {
+      cam.loop();
+    }
   }
 }

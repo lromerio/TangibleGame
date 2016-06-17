@@ -18,10 +18,16 @@ class HelpMode extends Mode {
 
     fill(255);
     textAlign(CENTER);
-    textSize(80);
-    text("HELP", width/2, 120);
     textSize(50);
-    text("Schiaccia un po' di tasti a caso", width/2, 200);
+    text("HELP", width/2, 120);
+    textSize(25);
+    text("The goal of this simple game is to hit cylinders on a plane with a ball.", width/2, height/4 + 50);
+    text("This is done by tilting the plane either with the mouse (click and drag on the playing area)", width/2, height/4 + 150);
+    text("or with a real lego board and a webcam to capture its movements (not yet implemented).", width/2, height/4 + 200);
+    text("You gain points by hitting cylinders and lose them if you hit the edges of the board.", width/2, height/4 + 300);
+    text("Cylinders can be added by holding the SHIFT key and clicking on the board.", width/2, height/4 + 400);
+    text("Pressing ENTER will pause the game.", width/2, height/4 + 450);
+    text("(In this MILESTONE version, a video is looping in the background and the board tilts according to it)", width/2, height/4 + 550);
 
     isOver();
 

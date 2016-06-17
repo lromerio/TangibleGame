@@ -4,11 +4,11 @@
 class PlayMode extends Mode {
 
   //tappa 6
-  PlayMode(){
-     isPaused = false;
-     isPlayMode = true;
-     
-     textFont(environment.gameFont);
+  PlayMode() {
+    isPaused = false;
+    isPlayMode = true;
+
+    textFont(environment.gameFont);
   } 
   /*
    * Performs the mouse dragged action of the plane.
@@ -16,7 +16,7 @@ class PlayMode extends Mode {
    * @see  plane.mouseDraggedPlane
    */
   void mouseDragged() {
-    if(mouseY < height-scores.dataVisualisation.height){
+    if (!camOn && mouseY < height-scores.dataVisualisation.height) {
       plane.mouseDraggedPlane();
     }
   }
@@ -35,8 +35,11 @@ class PlayMode extends Mode {
    */
   void display() {
     environment.display();
-    ip.update(cam);
-    
+
+    if (camOn) {
+      ip.update(cam);
+    }
+
     pushMatrix();
     translate(width/2, height/2, 0);
     plane.display();
@@ -45,21 +48,22 @@ class PlayMode extends Mode {
     drawCylinders();
     scores.drawScores();
     popMatrix(); 
-    
-    
-    
-    /*Display Cam or Vid*/
-    PImage toPrintSobel = ip.imgSobel;
-    toPrintSobel.resize(200, 200);
-    PImage toPrintCam = cam.get();
-    toPrintCam.resize(200, 200);
-    
-    fill(0);
-    rect(width-toPrintCam.width - 10, 0, toPrintCam.width + 10, toPrintCam.height + toPrintSobel.height + 10);
 
-    image(toPrintCam, width-toPrintCam.width - 5, 5);
-    image(toPrintSobel, width-toPrintSobel.width - 5, toPrintCam.height + 5);
-    
+
+    if (camOn) {
+      /*Display Cam or Vid*/
+      PImage toPrintSobel = ip.imgSobel;
+      toPrintSobel.resize(200, 200);
+      PImage toPrintCam = cam.get();
+      toPrintCam.resize(200, 200);
+
+
+      fill(0);
+      rect(width-toPrintCam.width - 10, 0, toPrintCam.width + 10, toPrintCam.height + toPrintSobel.height + 10);
+
+      image(toPrintCam, width-toPrintCam.width - 5, 5);
+      image(toPrintSobel, width-toPrintSobel.width - 5, toPrintCam.height + 5);
+    }
   }
 
   /*

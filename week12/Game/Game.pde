@@ -24,6 +24,7 @@ ScoreInterface scores;
 //EdgeDetection
 ImageProcessing ip;
 Movie cam;
+Boolean camOn;
 PImage frameMovie;
 
 //BONUS
