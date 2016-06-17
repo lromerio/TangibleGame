@@ -20,7 +20,7 @@ class HelpMode extends Mode {
     textAlign(CENTER);
     textSize(50);
     text("HELP", width/2, 120);
-    textSize(25);
+    textSize(20);
     text("The goal of this simple game is to hit cylinders on a plane with a ball.", width/2, height/4 + 50);
     text("This is done by tilting the plane either with the mouse (click and drag on the playing area)", width/2, height/4 + 150);
     text("or with a real lego board and a webcam to capture its movements (not yet implemented).", width/2, height/4 + 200);
