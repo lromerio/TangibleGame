@@ -23,8 +23,10 @@ ScoreInterface scores;
 
 //EdgeDetection
 ImageProcessing ip;
-Movie cam;
-Boolean camOn;
+Movie video;
+Capture cam;
+Boolean vidOn;
+Boolean webOn;
 PImage frameMovie;
 
 //BONUS
@@ -46,32 +48,31 @@ void settings() {
 void setup() {
   noStroke();
 
-  // Standard Background
+  //Style setup
   mainBG = loadImage("MainBG.jpg");
   mainBG.resize(displayWidth, displayHeight);
-
-  // Font
   mainFont = createFont("spaceage.ttf", 16, true);
 
-  currentMode = new MenuMode();
+  //Video setup
+  video = new Movie(this, "testvideo.mp4");
 
-
-  cam = new Movie(this, "testvideo.mp4"); //Put the video in the same directory
-  //cam.loop();
+  //Camera setup
+  String[] cameras = Capture.list();
+  if (cameras.length == 0) {
+    println("There are no cameras available for capture.");
+    exit();
+  } else {
+    println("Available cameras:");
+    for (int i = 0; i < cameras.length; i++) {
+      println(cameras[i] +"   "+ i);
+    }
+    cam = new Capture(this, cameras[9]);
+  }
 
   //EdgeDetection
   ip = new ImageProcessing();
-  //String []args = {"Image processing window"};
-  //PApplet.runSketch(args, ip);
-
-
-
-  //cylinders = new ArrayList<PVector>();
-  //ball = new Ball(20);
-  //plane = new Plane(450, 20);
-  //cylinder = new Cylinder(30, 30, 40);
-
-  //scores = new ScoreInterface();
+  
+  currentMode = new MenuMode();
 
   //BONUS
   //minim = new Minim(this);
@@ -81,8 +82,6 @@ void setup() {
 void draw() {
   directionalLight(229, 255, 204, 0, 1, -1);
   ambientLight(102, 102, 102);
-
-  //ip.update(cam);
 
   currentMode.display();
 } 

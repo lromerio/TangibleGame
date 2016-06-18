@@ -29,50 +29,12 @@ class ImageProcessing {
 
    ImageProcessing() {
 
-    // Hide window
-    //surface.setVisible(false);
-
     QGraph = new QuadGraph();
 
     tdtd = new TwoDThreeD(width, height);
-    
-    /*In the setup()*/
-    //cam = new Capture(this, cameras[63]);
-    //cam.start();
-
-    //cam = new Movie(this, "testvideo.mp4"); //Put the video in the same directory
-    //////cam.loop();
-
-
-    /*
-    // Camera setup
-     String[] cameras = Capture.list();
-     if (cameras.length == 0) {
-     println("There are no cameras available for capture.");
-     exit();
-     } else {
-     println("Available cameras:");
-     for (int i = 0; i < cameras.length; i++) {
-     println(cameras[i] +"   "+ i);
-     }
-     cam = new Capture(this, cameras[9]);
-     cam.start();
-     }
-     */
   }
 
-  void update(PImage cam) {
-    /*
-    // Get camera image
-     if (cam.available() == true) {
-     cam.read();
-     }
-     
-     imgStart = cam.get();
-     */
-     
-     
-
+  void update(PImage cam) {  
 
     // Thresholding pipeline
     imgSobel = hueThresholding(cam.get(), 50, 140);
@@ -104,10 +66,7 @@ class ImageProcessing {
 
       // Update plane angles
       plane.angleX = rot.x;
-      plane.angleZ = rot.z;
-      
-      
-      
+      plane.angleZ = rot.z;      
     }
     
     

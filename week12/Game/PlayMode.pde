@@ -16,7 +16,7 @@ class PlayMode extends Mode {
    * @see  plane.mouseDraggedPlane
    */
   void mouseDragged() {
-    if (!camOn && mouseY < height-scores.dataVisualisation.height) {
+    if (!vidOn && !webOn && mouseY < height-scores.dataVisualisation.height) {
       plane.mouseDraggedPlane();
     }
   }
@@ -36,8 +36,14 @@ class PlayMode extends Mode {
   void display() {
     environment.display();
 
-    if (camOn) {
-      ip.update(cam);
+    if (vidOn) {
+      ip.update(video);
+    } else if (webOn) {
+      // Get camera image
+      if (cam.available() == true) {
+        cam.read();
+      }
+      ip.update(cam.get());
     }
 
     pushMatrix();
@@ -50,13 +56,17 @@ class PlayMode extends Mode {
     popMatrix(); 
 
 
-    if (camOn) {
-      /*Display Cam or Vid*/
+    if (vidOn || webOn) {
       PImage toPrintSobel = ip.imgSobel;
       toPrintSobel.resize(200, 200);
-      PImage toPrintCam = cam.get();
+      
+      PImage toPrintCam;
+      if (vidOn) {
+        toPrintCam = video.get();
+      } else {
+        toPrintCam = cam.get();
+      }
       toPrintCam.resize(200, 200);
-
 
       fill(0);
       rect(width-toPrintCam.width - 10, 0, toPrintCam.width + 10, toPrintCam.height + toPrintSobel.height + 10);
