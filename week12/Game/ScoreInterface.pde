@@ -62,7 +62,7 @@ class ScoreInterface {
   void drawTopView() {
     topView.beginDraw();
     topView.translate(topView.width/2, topView.height/2);
-    topView.background(255, 204, 0);
+    topView.background(0, 153, 0);
     //Draw the Ball
     topView.fill(ball.colour);
     topView.ellipse(mapC(ball.location.x), mapC(ball.location.z), 2*mapC(ball.r), 2*mapC(ball.r));

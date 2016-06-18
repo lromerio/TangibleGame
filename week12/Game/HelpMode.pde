@@ -27,7 +27,8 @@ class HelpMode extends Mode {
     text("You gain points by hitting cylinders and lose them if you hit the edges of the board.", width/2, height/4 + 300);
     text("Cylinders can be added by holding the SHIFT key and clicking on the board.", width/2, height/4 + 400);
     text("Pressing ENTER will pause the game.", width/2, height/4 + 450);
-    text("(In this MILESTONE version, a video is looping in the background and the board tilts according to it)", width/2, height/4 + 550);
+    text("In this MILESTONE version you can also click \"Play with Video\"", width/2, height/4 + 550);
+    text("to let the board follow the given video", width/2, height/4 + 600);
 
     isOver();
 
