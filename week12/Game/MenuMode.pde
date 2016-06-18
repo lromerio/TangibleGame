@@ -193,8 +193,6 @@ class MenuMode extends Mode {
     currentMode = new PlayMode();
     if (vidOn) {
       video.loop();
-    } else if (webOn) {
-      cam.start();
     }
   }
 }

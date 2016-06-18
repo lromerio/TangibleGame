@@ -67,6 +67,7 @@ void setup() {
       println(cameras[i] +"   "+ i);
     }
     cam = new Capture(this, cameras[9]);
+    cam.start();
   }
 
   //EdgeDetection

@@ -43,7 +43,8 @@ class PlayMode extends Mode {
       if (cam.available() == true) {
         cam.read();
       }
-      ip.update(cam.get());
+      PImage toUp = cam.get();
+      ip.update(toUp);
     }
 
     pushMatrix();
