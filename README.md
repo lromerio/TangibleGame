@@ -21,17 +21,24 @@ You can also click "Play with Video" to let the board follow a prerecorded video
 
 Note that you can access the above description, by pressing the `?` in the top-right corner, from both the main and the resume menu.
 
-## Game Mode
-We have implemented three different game modes: _Classic_, _Star Wars_ and _Pokèmon_.
-The only difference between those three game modes is the layout.
-Additionally, when playing in _Star Wars_ mode, the Star Wars theme is played in background.
+## Game Layout
+We have implemented three different game layouts: _Classic_, _Star Wars_ and _Pokèmon_.
+As an addition, when playing in _Star Wars_ mode, the Star Wars theme is played in background.
 
-[classic](TangibleGame/data/PreviewC.JPG)
-[starWars](TangibleGame/data/PreviewSW.JPG)
-[pokemon](TangibleGame/data/PreviewPK.JPG)
+<img src="./TangibleGame/data/PreviewC.JPG" alt="classic" height="125"><img src="./TangibleGame/data/PreviewSW.JPG" alt="starWars" height="125"><img src="./TangibleGame/data/PreviewPK.JPG" alt="pokemon" height="125">
+
+## Requirements
+To play using real time edge detection you will need:
+- A green lego board
+- A webcam
+
+## How to run
+In the `application`folder you find the linux and the windows versions of the game compiled as Java applications.
+
+Alternatively, you can install [Processing](https://processing.org/) and the [Papaya](http://adilapapaya.com/papayastatistics/) library in order to launch the game directly from processing.
 
 ## License
-MIT licensed, details in [LICENSE.md]()
+MIT licensed, details in [LICENSE.md](./LICENSE.md)
 
 ## Authors
 - Albergoni Tobia - [aTobyWanKenobi](https://github.com/aTobyWanKenobi)
@@ -39,7 +46,7 @@ MIT licensed, details in [LICENSE.md]()
 - Romerio Lucio - [lromerio](https://github.com/lromerio)
 
 ## Screenshots
-[home](screenshot/home.JPG)
-[help](screenshot/help.JPG)
-[edge](screenshot/edge.JPG)
-[edge](screenshot/game.JPG)
+![home](screenshot/home.JPG)
+![help](screenshot/help.JPG)
+![edge](screenshot/edge.JPG)
+![edge](screenshot/game.JPG)
