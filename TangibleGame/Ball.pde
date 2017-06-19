@@ -25,7 +25,7 @@ class Ball {
 
   //BONUS
   //The bouncing sound
-  //AudioSample boing;
+  AudioSample boing;
 
 
   //_______________________________________________________________
@@ -72,34 +72,33 @@ class Ball {
       scores.totalScore += scores.lastScore;
       
       //BONUS
-      //boing.trigger();
+      boing.trigger();
     } else if (location.x < -plane.boardEdge/2) {
       location.x = -plane.boardEdge/2;
       velocity.x *= -1;
-      //tappa 6
+
       scores.lastScore = - velocity.mag();
       scores.totalScore += scores.lastScore;
       //BONUS
-      //boing.trigger();
+      boing.trigger();
     }
     if (location.z > plane.boardEdge/2) {
       location.z = plane.boardEdge/2;
       velocity.z *= -1; 
-      //tappa 6
+
       scores.lastScore = - velocity.mag();
       scores.totalScore += scores.lastScore;
       
       //BONUS
-      //boing.trigger();
+      boing.trigger();
     } else if (location.z < -plane.boardEdge/2) {
       location.z = -plane.boardEdge/2;
       velocity.z *= -1; 
       
-      //tappa 6
       scores.lastScore = - velocity.mag();
       scores.totalScore += scores.lastScore;
       //BONUS
-      //boing.trigger();
+      boing.trigger();
     }
     
     cylinderCollision();
@@ -125,7 +124,7 @@ class Ball {
 
         
         //BONUS
-        //boing.trigger();
+        boing.trigger();
       }
     }
   }

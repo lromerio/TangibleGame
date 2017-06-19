@@ -4,12 +4,12 @@
 
 //BONUS
 //Those imports are for playing sounds.
-//import ddf.minim.*;
-//import ddf.minim.analysis.*;
-//import ddf.minim.effects.*;
-//import ddf.minim.signals.*;
-//import ddf.minim.spi.*;
-//import ddf.minim.ugens.*;
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
 
 //_______________________________________________________________
 //Objects
@@ -32,7 +32,7 @@ PImage frameMovie;
 //BONUS
 
 //minim: object for loading playing sounds.
-//Minim minim;
+Minim minim;
 
 //environment: for personalised background and theme.
 Environment environment;

@@ -22,7 +22,7 @@ class Environment {
 
   //BONUS
   //PLayer for the background music
-  //AudioPlayer player;
+  AudioPlayer player;
 
   //_______________________________________________________________
   //Functions
@@ -68,8 +68,8 @@ class Environment {
 
     //BONUS
     //Plays the Star Wars theme in backgound when the Environment is created.
-    //player = minim.loadFile("StarWarsTheme.mp3");
-    //player.play();
+    player = minim.loadFile("StarWarsTheme.mp3");
+    player.play();
 
     //BONUS
     //Star Wars themed font to display on the screen (source: http://www.fontspace.com/category/star%20wars)
