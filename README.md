@@ -33,7 +33,7 @@ To play using real time edge detection you will need:
 - A webcam
 
 ## How to run
-In the `application` folder you find the linux and the windows versions of the game compiled as Java applications.
+In the `application` folder you find the linux and the windows standalone applications.
 
 Alternatively, you can install [Processing](https://processing.org/) and the [Papaya](http://adilapapaya.com/papayastatistics/) library in order to launch the game directly from processing.
 
