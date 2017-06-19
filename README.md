@@ -19,7 +19,7 @@ Cylinders can be added by holding the `SHIFT` key and clicking on the board.
 Pressing `ENTER` will pause the game.
 You can also click "Play with Video" to let the board follow a prerecorded video._
 
-Note that you can access the above description, by pressing the `?` in the top-right corner, from both the main and the resume menu.
+Note that you can access the above description by pressing the `?` in the top-right corner from both the main and the resume menu.
 
 ## Game Layout
 We have implemented three different game layouts: _Classic_, _Star Wars_ and _Pokèmon_.
@@ -33,7 +33,7 @@ To play using real time edge detection you will need:
 - A webcam
 
 ## How to run
-In the `application`folder you find the linux and the windows versions of the game compiled as Java applications.
+In the `application` folder you find the linux and the windows versions of the game compiled as Java applications.
 
 Alternatively, you can install [Processing](https://processing.org/) and the [Papaya](http://adilapapaya.com/papayastatistics/) library in order to launch the game directly from processing.
 
